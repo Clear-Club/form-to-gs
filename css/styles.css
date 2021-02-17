@@ -1,3 +1,11 @@
 h1 {
     text-align: center;
 }
+
+.container {
+    background-color: beige;
+}
+
+input {
+    width: 100%;
+}

@@ -14,15 +14,47 @@
     <body>
         <h1>Sample Form to GS</h1>
 
+        <!-- form -->
         <div class="container">
-            <!-- form -->
-            <form name='submit-to-google-sheets'>
-                <input name="tray_number" type="text" placeholder="Tray Number">
-                <input name="cart_name" type="text" placeholder="Cart Name">
-                <input name="name" type="text" placeholder="name">
-                <input name="cust_id" type="text" placeholder="Customer Id">
-                <button type="submit">Send</button>
-            </form>
+            <div class="row row-content">
+                <div class="col-md-10">
+                    <form name='submit-to-google-sheets'>
+                        <div class="form-group row">
+                            <label for="name" class="col-md-2 col-form-label">Name: </label>
+                            <div class="col-md-10">
+                                <input name="name" type="text" placeholder="name">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="tray_number" class="col-md-2 col-form-label">Tray Number: </label> 
+                            <div class="col-md-10">
+                                <input name="tray_number" type="text" placeholder="Tray Number">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="cart_name" class="col-md-2 col-form-label">Cart Name: </label>
+                            <div class="col-md-10">
+                                <input name="cart_name" type="text" placeholder="Cart Name">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="cust_id" class="col-md-2 col-form-label">QR Code: </label>
+                            <div class="col-md-10">
+                                <input name="cust_id" type="text" placeholder="Customer Id">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="offset-md-2 col-md-10">
+                                <button class="btn btn-primary" type="submit">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
         <script src="https://wzrd.in/standalone/formdata-polyfill"></script>
