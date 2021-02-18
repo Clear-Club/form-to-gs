@@ -9,3 +9,8 @@ h1 {
 input {
     width: 100%;
 }
+
+h5 {
+    text-align: center;
+    width: 100%;
+}

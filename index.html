@@ -12,46 +12,198 @@
 
     </head>
     <body>
-        <h1>Sample Form to GS</h1>
+        <h1>Sample Form to GS <br>Version 01</h1>
 
         <!-- form -->
         <div class="container">
             <div class="row row-content">
                 <div class="col-md-10">
-                    <form name='submit-to-google-sheets'>
+                    <form name='submit-to-google-sheets' id='form-to-google'>
+                        <div class="form-group row">
+                            <label for="task" class="col-md-2 col-form-label">Task: </label>
+                            <div class="col-md-10">
+                                <input name="task" type="text" placeholder="task" required/>
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label for="name" class="col-md-2 col-form-label">Name: </label>
                             <div class="col-md-10">
-                                <input name="name" type="text" placeholder="name">
+                                <input name="name" type="text" placeholder="name" required/>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="tray_number" class="col-md-2 col-form-label">Tray Number: </label> 
                             <div class="col-md-10">
-                                <input name="tray_number" type="text" placeholder="Tray Number">
+                                <input name="tray_number" type="text" placeholder="Tray Number" required/>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="cart_name" class="col-md-2 col-form-label">Cart Name: </label>
                             <div class="col-md-10">
-                                <input name="cart_name" type="text" placeholder="Cart Name">
+                                <input name="cart_name" type="text" placeholder="Cart Name" required/>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="cust_id" class="col-md-2 col-form-label">QR Code: </label>
+                            <div class="col-md-12">
+                                <h5>Scan your models/impressions (up to 12 baskets or 24 models if they are doubles)</h5>
+                            </div>
+                        </div>  
+
+                        <div class="form-group row">
+                            <label for="qrCode01" class="col-md-2 col-form-label">QR Code 01: </label>
                             <div class="col-md-10">
-                                <input name="cust_id" type="text" placeholder="Customer Id">
+                                <input name="qrCode01" type="text" placeholder="Qr Code 01" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode02" class="col-md-2 col-form-label">QR Code 02: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode02" type="text" placeholder="QR Code 02" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode03" class="col-md-2 col-form-label">QR Code 03: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode03" type="text" placeholder="QR Code 03" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode04" class="col-md-2 col-form-label">QR Code 04: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode04" type="text" placeholder="QR Code 04" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode05" class="col-md-2 col-form-label">QR Code 05: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode05" type="text" placeholder="QR Code 05" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode06" class="col-md-2 col-form-label">QR Code 06: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode06" type="text" placeholder="QR Code 06" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode07" class="col-md-2 col-form-label">QR Code 07: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode07" type="text" placeholder="QR Code 07" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode08" class="col-md-2 col-form-label">QR Code 08: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode08" type="text" placeholder="QR Code 08" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode09" class="col-md-2 col-form-label">QR Code 09: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode09" type="text" placeholder="QR Code 09" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode10" class="col-md-2 col-form-label">QR Code 10: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode10" type="text" placeholder="QR Code 10" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode11" class="col-md-2 col-form-label">QR Code 11: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode11" type="text" placeholder="QR Code 11" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode12" class="col-md-2 col-form-label">QR Code 12: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode12" type="text" placeholder="QR Code 12" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode13" class="col-md-2 col-form-label">QR Code 13: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode13" type="text" placeholder="QR Code 13" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode14" class="col-md-2 col-form-label">QR Code 14: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode14" type="text" placeholder="QR Code 14" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode15" class="col-md-2 col-form-label">QR Code 15: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode15" type="text" placeholder="QR Code 15" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode16" class="col-md-2 col-form-label">QR Code 16: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode16" type="text" placeholder="QR Code 16" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode17" class="col-md-2 col-form-label">QR Code 17: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode17" type="text" placeholder="QR Code 17" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode18" class="col-md-2 col-form-label">QR Code 18: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode18" type="text" placeholder="QR Code 18" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode19" class="col-md-2 col-form-label">QR Code 19: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode19" type="text" placeholder="QR Code 19" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode20" class="col-md-2 col-form-label">QR Code 20: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode20" type="text" placeholder="QR Code 20" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode21" class="col-md-2 col-form-label">QR Code 21: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode21" type="text" placeholder="QR Code 21" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode22" class="col-md-2 col-form-label">QR Code 22: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode22" type="text" placeholder="QR Code 22" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode23" class="col-md-2 col-form-label">QR Code 23: </label>
+                            <div class="col-md-10">
+                                <input name=qrCode23 type="text" placeholder="QR Code 23" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="qrCode24" class="col-md-2 col-form-label">QR Code 24: </label>
+                            <div class="col-md-10">
+                                <input name="qrCode24" type="text" placeholder="QR Code 24" />
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="offset-md-2 col-md-10">
-                                <button class="btn btn-primary" type="submit">Send</button>
+                                <button id="submit" class="btn btn-primary" type="submit">Send</button>
                             </div>
                         </div>
+                        
                     </form>
                 </div>
             </div>
