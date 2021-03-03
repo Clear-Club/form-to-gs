@@ -1,15 +1,17 @@
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwLCvbUAk4H7YkH43md1OfGbZ8RDSPWDYkOGDYSxAWV03GGFGNp/exec'
-const form = document.forms['submit-to-google-sheets']
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzR7pDjkxCV-eu2Qq_zMdy96QEeR0p_afOZlS3RQp13VPcm8anc-LZM-Q/exec';
+
+// const form = document.forms['submit-to-google-sheets']
+const form = document.getElementById('submit-to-google-sheets');
 
 
-form.addEventListener('submit', e => {
-    e.preventDefault()
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
     fetch(scriptURL, { method: 'POST', body: new FormData(form) })
         .then(response => console.log('Success!', response))
         .catch(error => console.error('Error!', error.message));
 
     // resets form after submission 
-    document.getElementById('submit-to-google-sheets').reset();
+    form.reset();
 })
 
 // using enter/return to go to next field
