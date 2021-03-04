@@ -14,3 +14,7 @@ h5 {
     text-align: center;
     width: 100%;
 }
+
+p {
+    font-weight: bold;
+}
