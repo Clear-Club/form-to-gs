@@ -21,24 +21,59 @@
         </nav>
         
         <!-- header -->
-        <h1>Sample Form to GS <br>Version 02</h1>
+        <h1>Tech Tracking <br>Form</h1>
 
         <!-- form -->
         <div class="container">
+
+            <p>
+                Instructions to using this form <br>
+                1) Search for the task you are going to do.<br>
+                2) Search for your name <br>
+                3) Scan Tray QR Code <br>
+                4) scan your impressions/models
+            </p>
             <div class="row row-content">
                 <div class="col-md-10">
                     <form name='submit-to-google-sheets' id='submit-to-google-sheets'>
                         <div class="form-group row">
                             <label for="task" class="col-md-2 col-form-label">Task: </label>
                             <div class="col-md-10">
-                                <input name="task" type="text" placeholder="task" required/>
+                                <select id="task" name="task" required>
+                                    <option value="Priority">Priority</option>
+                                    <option value="Tech Trimming">Tech Trimming</option>
+                                    <option value="Pouring">Pouring</option>
+                                    <option value="Breaking">Breaking</option>
+                                    <option value="Accepted Guards">Accepted Guards</option>
+                                    <option value="Repour Guard Not Made">Repour Guard Made</option>
+                                    <option value="Repour G.M.">Repour Guard NOT Made</option>
+                                </select>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="name" class="col-md-2 col-form-label">Name: </label>
                             <div class="col-md-10">
-                                <input name="name" type="text" placeholder="name" required/>
+                                <select id="name" name="name" required>
+                                    <optgroup label="Techs">
+                                        <option value="Tiffany">Tiffany</option>
+                                        <option value="Cristian">Cristian</option>
+                                        <option value="Rachel">Rachel</option>
+                                        <option value="Maddie">Maddie</option>
+                                        <option value="Jakob">Jakob</option>"
+                                        <option value="Nicole">Nicole</option>
+                                        <option value="Kelly">Kelly</option>
+                                        <option value="Naomi">Naomi</option>
+                                    </optgroup>
+                                    <optgroup label="Shipping">
+                                        <option value="Ariste">Ariste</option>
+                                        <option value="Miguel">Miguel</option>
+                                        <option value="Andrea">Andrea</option>
+                                        <option value="Sofia">Sofia</option>
+                                        <option value="Ginette">Ginette</option>
+                                        <option value="Pablo">Pablo</option>
+                                    </optgroup>
+                                </select>
                             </div>
                         </div>
 
@@ -58,7 +93,7 @@
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <h5>Scan your models/impressions (up to 12 baskets or 24 models if they are doubles)</h5>
+                                <h5>Scan your models/impressions (up to 14 baskets or 24 models if they are doubles) per tray</h5>
                             </div>
                         </div>  
 
