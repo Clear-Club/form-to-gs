@@ -18,3 +18,8 @@ h5 {
 p {
     font-weight: bold;
 }
+
+.priority {
+    background-color: red;
+    color: white;
+}

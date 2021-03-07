@@ -17,6 +17,7 @@
             <form class="form-inline">
                 <a href="index.html" class="btn btn-sm btn-outline-secondary">Tech Tracking</a>
                 <a href="" class="btn btn-outline-success">Tray Tracking</a>
+                <a href="thermoforming.html" class="btn btn-sm btn-outline-secondary">Thermoforming</a>
             </form>
         </nav>
         
@@ -29,24 +30,45 @@
                 <div class="col-md-10">
                     <form name='submit-to-google-sheets' id='submit-to-google-sheets'>
                         <div class="form-group row">
+                            <label for="task" class="col-md-2 col-form-label">Task: </label> 
+                            <div class="col-md-10">
+                                <select id="task" name="task" required>
+                                    <option value="Choose..." selected>Choose...</option>
+                                    <option value="Tray Tracking">Regular Tracking</option>
+                                    <!-- <option value="Priority Tracking">Priority Tracking</option> -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="cart_name" class="col-md-2 col-form-label">Cart Name: </label>
+                            <div class="col-md-10">
+                                <!-- <input name="cart_name" type="text" placeholder="Cart Name" required/> -->
+                                <select id="task" name="cart_name" required>
+                                    <option value="Choose..." selected>Choose...</option>
+                                    <option value="Pouring">Pouring</option>
+                                    <option value="Breaking">Breaking</option>
+                                    <option value="Thermoforming">Thermoforming</option>
+                                    <option value="Trimming">Trimming</option>
+                                    <option value="Quality Assurance">Quality Assurance</option>
+                                    <option value="Accepted">Accepted</option>
+                                    <option value="Holding">Holding</option>
+                                    <option value="Repour Guard Made">Repour Guard Made</option>
+                                    <option value="Repour Guard Made Breaking">Repour Guard Made Breaking</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="tray_number" class="col-md-2 col-form-label">Tray Number: </label> 
                             <div class="col-md-10">
                                 <input name="tray_number" type="text" placeholder="Tray Number" required/>
                             </div>
                         </div>
 
-
-                        <div class="form-group row">
-                            <label for="cart_name" class="col-md-2 col-form-label">Cart Name: </label>
-                            <div class="col-md-10">
-                                <input name="cart_name" type="text" placeholder="Cart Name" required/>
-                            </div>
-                        </div>
-
                         <div class="form-group row">
                             <div class="offset-md-2 col-md-10">
                                 <button id="submit" class="btn btn-primary" type="submit">Submit</button>
-                                <!-- <button id="reset" class="btn btn-danger" type="reset">Reset</button> -->
                             </div>
                         </div>
                         

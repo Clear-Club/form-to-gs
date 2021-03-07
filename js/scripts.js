@@ -1,4 +1,6 @@
-const scriptURL = 'https://script.google.com/macros/s/AKfycbzR7pDjkxCV-eu2Qq_zMdy96QEeR0p_afOZlS3RQp13VPcm8anc-LZM-Q/exec';
+// google sheets link
+const scriptURL = '';
+
 
 // const form = document.forms['submit-to-google-sheets']
 const form = document.getElementById('submit-to-google-sheets');
