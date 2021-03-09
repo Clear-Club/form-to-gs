@@ -1,7 +1,6 @@
 // google sheets link
 const scriptURL = '';
 
-
 // const form = document.forms['submit-to-google-sheets']
 const form = document.getElementById('submit-to-google-sheets');
 
@@ -15,15 +14,3 @@ form.addEventListener('submit', (e) => {
     // resets form after submission 
     form.reset();
 })
-
-// using enter/return to go to next field
-// $('form input').keydown(function (e) {
-//     if (e.keyCode == 13) {
-//         var inputs = $(this).parents("form").eq(0).find(":input");
-//         if (inputs[inputs.index(this) + 1] != null) {
-//             inputs[inputs.index(this) + 1].focus();
-//         }
-//         e.preventDefault();
-//         return false;
-//     }
-// });
