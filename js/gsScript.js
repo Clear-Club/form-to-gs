@@ -1,9 +1,6 @@
-// Author: Miguel
-// Last Modified: 3/8/2021
-
 var sheetName = 'Logging';
 var scriptProp = PropertiesService.getScriptProperties();
-// Logger = BetterLog.useSpreadsheet('');
+// Logger = BetterLog.useSpreadsheet('1qOqJUSXHgBHdix1OURaJIb9iJ5RZJG1N-1Y8NrM0_UA');
 
 function intialSetup() {
     var activeSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
@@ -39,7 +36,7 @@ function doPost(e) {
                 specificTab(obj["task"], obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Priority Tracking":
-                specificTab(obj["task"], obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                priorityTracking("Tray Tracking", obj["tray_number"], obj["cart_name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Pouring":
                 specificTab(obj["task"], obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
@@ -57,13 +54,13 @@ function doPost(e) {
                 specificTab(obj["task"], obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Tray Tracking":
-                specificTracking(obj["task"], obj["tray_number"], obj["cart_name"]);
+                regularTracking(obj["task"], obj["tray_number"], obj["cart_name"]);
                 break;
             case "Fixed Guards":
-                fixedReThermoformingTab(obj["task"], obj["name"], obj["tech_name"], obj["qrCodeArea"].split("\n"));
+                fixedReThermoformingtab(obj["task"], obj["name"], obj["tech_name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "ReThermoforming":
-                fixedReThermoformingTab(obj["task"], obj["name"], obj["tech_name"], obj["qrCodeArea"].split("\n"));
+                fixedReThermoformingtab(obj["task"], obj["name"], obj["tech_name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Quality Assurance":
                 qualityThermoTabs(obj["task"], obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
@@ -93,14 +90,14 @@ function doPost(e) {
     }
 
     finally {
-        lock.releaseLock();
+        lock.releaseLock()
     }
 }
 
-// works on Fixed Guards and ReThermoforming
+// rethermoforming && fixed guards
 // format
 // date | Impressing QR Code | Employee QR Code
-function fixedReThermoformingTab(task, name, techName, impressions) {
+function fixedReThermoformingtab(task, name, techName, impressions) {
     var spreadSheet = SpreadsheetApp.getActiveSpreadsheet();
     var subSheetName = spreadSheet.getSheetByName(task);
 
@@ -130,6 +127,8 @@ function qualityThermoTabs(task, trayNum, techName, impressions) {
 
     // get last row
     var lastRow = modifiedGetLastRow(columnToCheck);
+
+    // var lastRow = subSheetName.getLastRow();
 
     // add impressions to last line
     for (var i = 0; i < impressions.length - 1; i++) {
@@ -199,7 +198,7 @@ function specificTab(task, trayNum, techName, impressions) {
 // Tray Tracking
 // format
 // date | tray # | cart Name
-function specificTracking(task, trayNum, cartName) {
+function regularTracking(task, trayNum, cartName) {
     var spreadSheet = SpreadsheetApp.getActiveSpreadsheet();
     var subSheetName = spreadSheet.getSheetByName(task);
 
@@ -213,6 +212,27 @@ function specificTracking(task, trayNum, cartName) {
 
 }
 
+// Priority Tracking
+// will still post to Tray Tracking Form but different parameters
+// date | tray # | cart Name | Impressions
+function priorityTracking(task, trayNum, cartName, impressions) {
+    var spreadSheet = SpreadsheetApp.getActiveSpreadsheet();
+    var subSheetName = spreadSheet.getSheetByName(task);
+
+    var date = getDate();
+    var lastRow = subSheetName.getLastRow();
+
+    for (var i = 0; i < impressions.length - 1; i++) {
+        subSheetName.getRange(lastRow + 1, 1).setValue(date);
+        subSheetName.getRange(lastRow + 1, 2).setValue(trayNum);
+        subSheetName.getRange(lastRow + 1, 3).setValue(cartName);
+        subSheetName.getRange(lastRow + 1, 4).setValue(impressions[i]);
+
+        lastRow++;
+    }
+}
+
+// returns new date
 function getDate() {
     return new Date();
 }
