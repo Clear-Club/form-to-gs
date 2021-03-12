@@ -1,4 +1,6 @@
-// for script purposes
+// Author: Miguel
+// Last Modified: 3/8/2021
+
 var sheetName = 'Logging';
 var scriptProp = PropertiesService.getScriptProperties();
 // Logger = BetterLog.useSpreadsheet('');
@@ -58,10 +60,10 @@ function doPost(e) {
                 specificTracking(obj["task"], obj["tray_number"], obj["cart_name"]);
                 break;
             case "Fixed Guards":
-                fixedGuardsTab(obj["task"], obj["tray_number"], obj["name"], obj["tech_name"], obj["qrCodeArea"].split("\n"));
+                fixedReThermoformingTab(obj["task"], obj["name"], obj["tech_name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "ReThermoforming":
-                reThermoformingTab(obj["task"], obj["name"], obj["tech_name"], obj["qrCodeArea"].split("\n"));
+                fixedReThermoformingTab(obj["task"], obj["name"], obj["tech_name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Quality Assurance":
                 qualityThermoTabs(obj["task"], obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
@@ -91,36 +93,14 @@ function doPost(e) {
     }
 
     finally {
-        lock.releaseLock()
+        lock.releaseLock();
     }
 }
 
-// Fixed Guard tab
-// format
-// date | tray QR Code | Emp QR Code | Trim Tech QR Code | Impressing QR Code
-function fixedGuardsTab(task, trayNum, name, techName, impressions) {
-    var spreadSheet = SpreadsheetApp.getActiveSpreadsheet();
-    var subSheetName = spreadSheet.getSheetByName(task);
-
-    var date = getDate();
-    var lastRow = subSheetName.getLastRow();
-
-    // add impressions to last line
-    // and concurrently adds date, tray #, emp name, and tech name
-    for (var i = 0; i < impressions.length - 1; i++) {
-        subSheetName.getRange(lastRow + 1, 1).setValue(date);
-        subSheetName.getRange(lastRow + 1, 2).setValue(trayNum);
-        subSheetName.getRange(lastRow + 1, 3).setValue(name);
-        subSheetName.getRange(lastRow + 1, 4).setValue(techName);
-        subSheetName.getRange(lastRow + 1, 5).setValue(impressions[i]);
-
-        lastRow++;
-    }
-}
-
+// works on Fixed Guards and ReThermoforming
 // format
 // date | Impressing QR Code | Employee QR Code
-function reThermoformingTab(task, name, techName, impressions) {
+function fixedReThermoformingTab(task, name, techName, impressions) {
     var spreadSheet = SpreadsheetApp.getActiveSpreadsheet();
     var subSheetName = spreadSheet.getSheetByName(task);
 
@@ -138,14 +118,18 @@ function reThermoformingTab(task, name, techName, impressions) {
     }
 }
 
-// applies to thermoforming and quality control
+// applies to thermoforming and quality assurance
 function qualityThermoTabs(task, trayNum, techName, impressions) {
     var spreadSheet = SpreadsheetApp.getActiveSpreadsheet();
     var subSheetName = spreadSheet.getSheetByName(task);
 
     var date = getDate();
 
-    var lastRow = subSheetName.getLastRow();
+    // selected column to check for first empty cell
+    var columnToCheck = subSheetName.getRange("D:D").getValues();
+
+    // get last row
+    var lastRow = modifiedGetLastRow(columnToCheck);
 
     // add impressions to last line
     for (var i = 0; i < impressions.length - 1; i++) {
@@ -157,13 +141,31 @@ function qualityThermoTabs(task, trayNum, techName, impressions) {
         lastRow++;
     }
 
-    for (var i = 0; i < impressions.length - 1; i++) {
-        var thickness = subSheetName.getRange(lastRow - (impressions.length - 1 + i), 5).getValue();
-        var notes = subSheetName.getRange(lastRow - (impressions.length - 1 + i), 6).getValue();
-        var quantity = subSheetName.getRange(lastRow - (impressions.length - 1 + i), 7).getValue();
+    // for(var i = 0; i < impressions.length - 1; i++){
+    //   var thickness = subSheetName.getRange(lastRow - (impressions.length - 1 + i), 5).getValue();
+    //   var notes = subSheetName.getRange(lastRow - (impressions.length - 1 + i), 6).getValue();
+    //   var quantity = subSheetName.getRange(lastRow - (impressions.length - 1 + i), 7).getValue();
 
-        lastRow++;
+    //   lastRow++;
+    // }
+}
+
+// for thermoforming and quality assurance
+// since it has formulas going down sheet
+function modifiedGetLastRow(range) {
+    var rowNum = 0;
+    var isBlank = false;
+
+    for (var row = 0; row < range.length; row++) {
+        if (range[row][0] === "" && !isBlank) {
+            rowNum = row;
+            isBlank = true;
+        } else if (range[row][0] !== "") {
+            isBlank = false;
+        }
     }
+
+    return rowNum;
 }
 
 // applies to
