@@ -15,7 +15,7 @@
         <!-- navbar to toggle between forms -->
         <nav class="navbar navbar-dark bg-dark justify-content-center">
             <form class="form-inline">
-                <a href="" class="btn btn-outline-success">Tech Tracking </a>
+                <a href="" class="btn btn-outline-success">Tech Action </a>
                 <a href="trayTrackingForm.html" class="btn btn-sm btn-outline-secondary">Tray Tracking</a>
                 <a href="fixedReThermoforming.html" class="btn btn-sm btn-outline-secondary">Fixed ReThermoforming</a>
                 <a href="thermoforming.html" class="btn btn-sm btn-outline-secondary">Quality Thermoforming</a>
@@ -24,7 +24,7 @@
         </nav>
         
         <!-- header -->
-        <h1>Impression Tracking <br>Form</h1>
+        <h1>Tech Action <br>Form</h1>
 
         <!-- form -->
         <div class="container">
@@ -44,8 +44,7 @@
                             <div class="col-md-10">
                                 <select id="task" name="task" required>
                                     <option value="Choose..." selected>Choose...</option>
-                                    <option class="priority" value="Priority">Priority</option>
-                                    <option class="priority" value="Priority Tracking">Priority Tracking</option>
+                                    <option class="priority-red" value="Priority">Priority</option>
                                     <option value="Tech Trimming">Tech Trimming</option>
                                     <option value="Pouring">Pouring</option>
                                     <option value="Breaking">Breaking</option>
@@ -85,7 +84,7 @@
                         <div class="form-group row">
                             <label for="tray_number" class="col-md-2 col-form-label">Tray Number: </label> 
                             <div class="col-md-10">
-                                <input name="tray_number" type="text" placeholder="Tray Number" autocomplete="off" required/>
+                                <input class="stop-return" name="tray_number" type="text" placeholder="Tray Number" autocomplete="off" required/>
                             </div>
                         </div>
 

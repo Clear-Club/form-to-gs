@@ -19,12 +19,11 @@ p {
     font-weight: bold;
 }
 
-.priority {
+.priority-red {
     background-color: red;
     color: white;
 }
 
-iframe {
-    width: 100%;
-    height: 100vh;
+.hidden-priority {
+    display: none;
 }
