@@ -1,6 +1,7 @@
 var sheetName = 'Logging';
 var scriptProp = PropertiesService.getScriptProperties();
-// Logger = BetterLog.useSpreadsheet('1qOqJUSXHgBHdix1OURaJIb9iJ5RZJG1N-1Y8NrM0_UA');
+// Logger = BetterLog.useSpreadsheet('');
+// Logger.DATE_TIME_LAYOUT = "yyyy-MM-dd 'at' HH:mm:ss 'GMT'z '('Z')'";
 
 function intialSetup() {
     var activeSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
@@ -8,8 +9,8 @@ function intialSetup() {
 }
 
 function doPost(e) {
-    var lock = LockService.getScriptLock();
-    lock.tryLock(10000);
+    // var lock = LockService.getScriptLock();
+    // lock.tryLock(10000);
 
     try {
         var doc = SpreadsheetApp.openById(scriptProp.getProperty('key'));
@@ -22,7 +23,6 @@ function doPost(e) {
         var obj = JSON.parse(json);
 
         Logger.log('JSON STRING:' + json);
-        Logger.log('JSON parse: ' + obj["task"]);
 
 
         switch (obj["task"]) {
@@ -89,9 +89,9 @@ function doPost(e) {
             .setMimeType(ContentService.MimeType.JSON)
     }
 
-    finally {
-        lock.releaseLock()
-    }
+    // finally {
+    //     lock.releaseLock()
+    // }
 }
 
 // rethermoforming && fixed guards

@@ -1,57 +1,36 @@
 // google sheets link
-const scriptURL = 'https://script.google.com/macros/s/AKfycbxNfN_PG2v5N-uQD1nLf0oMzO3j_UDUx0MUjCz0d_A3G6UZItvSmiTgp2FWOQVRUjYwEA/exec';
+const scriptURL = '';
 
-const form01 = document.forms['tech-action-form'];
-const form02 = document.forms['tray-tracking-form'];
-const form03 = document.forms['quality-thermo-form'];
-const form04 = document.forms['fixed-rethermo-form'];
+const form = document.getElementById('form-submission-gs');
 
-// form 01 for tech actions (index) submission
-form01.addEventListener('submit', (e) => {
+// // form for all form types in different pages
+form.addEventListener('submit', (e) => {
+    // prints log information with date
+    var consoleFormData = new FormData(form);
+    console.log(todayDate());
+    for(var pair of consoleFormData.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+    }
+
     e.preventDefault();
-    fetch(scriptURL, { method: 'POST', body: new FormData(form01) })
-        .then(response => console.log('Success!', response))
-        .catch(error => console.error('Error!', error.message));
+    console.log("form has been submitted!");
+    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+        .then(response => {
+            console.log('Success!', response);
+            alert('Form has been successfully submitted at' + todayDate());
+        })
+        .catch(error => {
+            console.error('Error!', error.message);
+            alert('error: please try again');
+        });
 
     // resets form after submission 
-    form01.reset();
-});
-
-// form 02 for tray tracking submission
-form02.addEventListener('submit', (e) => {
-    e.preventDefault();
-    fetch(scriptURL, { method: 'POST', body: new FormData(form02) })
-        .then(response => console.log('Success!', response))
-        .catch(error => console.error('Error!', error.message));
-
-    // resets form after submission 
-    form02.reset();
-});
-
-// form 03 for Quality Assurance and Thermoforming
-form03.addEventListener('submit', (e) => {
-    e.preventDefault();
-    fetch(scriptURL, { method: 'POST', body: new FormData(form03) })
-        .then(response => console.log('Success!', response))
-        .catch(error => console.error('Error!', error.message));
-
-    // resets form after submission 
-    form03.reset();
-});
-
-// form 02 for tray tracking submission
-form04.addEventListener('submit', (e) => {
-    e.preventDefault();
-    fetch(scriptURL, { method: 'POST', body: new FormData(form04) })
-        .then(response => console.log('Success!', response))
-        .catch(error => console.error('Error!', error.message));
-
-    // resets form after submission 
-    form04.reset();
+    form.reset();
 });
 
 // handler for .ready()
 $(function() {
+    // tray tracking regular || priority tracking condition
     $("#tracking").on("change", function() {
         // console.log($(this).val())
         if($(this).val() === "Priority Tracking") {
@@ -70,3 +49,8 @@ $(function() {
         }
     });
 });
+
+// prints new date
+function todayDate() {
+    return new Date;
+}
