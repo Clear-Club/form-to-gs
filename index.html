@@ -15,93 +15,48 @@
         <!-- navbar to toggle between forms -->
         <nav class="navbar navbar-dark bg-dark justify-content-center">
             <form class="form-inline">
-                <a href="" class="btn btn-outline-success">Tech Action </a>
-                <a href="traytrackingForm.html" class="btn btn-sm btn-outline-secondary">Tray Tracking</a>
-                <a href="fixedrethermoforming.html" class="btn btn-sm btn-outline-secondary">Fixed ReThermoforming</a>
-                <a href="qualitythermo.html" class="btn btn-sm btn-outline-secondary">Quality Thermoforming</a>
+                <a href="techaction-form.html" class="btn btn-sm btn-outline-secondary">Tech Action </a>
+                <a href="traytracking-form.html" class="btn btn-sm btn-outline-secondary">Tray Tracking</a>
+                <a href="fixedrethermo-form.html" class="btn btn-sm btn-outline-secondary">Fixed ReThermoforming</a>
+                <a href="qualitythermo-form.html" class="btn btn-sm btn-outline-secondary">Quality Thermoforming</a>
             </form>
         </nav>
         
         <!-- header -->
-        <h1>Tech Action <br>Form</h1>
+        <h1>Home</h1>
 
         <!-- form -->
         <div class="container">
-
-            <p>
-                Instructions to using this form <br>
-                1) What task are you currently doing.<br>
-                2) Search for your name <br>
-                3) Scan Tray QR Code <br>
-                4) scan your impressions/models
-            </p>
             <div class="row row-content">
                 <div class="col-md-10">
-                    <form name='form-submission-gs' id='form-submission-gs'>
-                        <div class="form-group row">
-                            <label for="task" class="col-md-2 col-form-label">Task: </label>
-                            <div class="col-md-10">
-                                <select id="task" name="task" required>
-                                    <option value="Choose..." selected>Choose...</option>
-                                    <option class="priority-red" value="Priority">Priority</option>
-                                    <option value="Tech Trimming">Tech Trimming</option>
-                                    <option value="Pouring">Pouring</option>
-                                    <option value="Breaking">Breaking</option>
-                                    <option value="Accepted Guards">Accepted Guards</option>
-                                    <option value="Repour Guard Not Made">Repour Guard NOT Made</option>
-                                    <option value="Repour G.M.">Repour Guard G.M.</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-2 col-form-label">Name: </label>
-                            <div class="col-md-10">
-                                <select id="name" name="name" required>
-                                    <optgroup label="Supervisor Techs">
-                                        <option value="Tiffany">Tiffany</option>
-                                        <option value="Cristian">Cristian</option>
-                                    </optgroup>
-                                    <optgroup label="Techs">
-                                        <option value="Rachel">Rachel</option>
-                                        <option value="Maddie">Maddie</option>
-                                        <option value="Kevin">Kevin</option>"
-                                        <option value="Nicole">Nicole</option>
-                                        <option value="Kelly">Kelly</option>
-                                        <option value="Naomi">Naomi</option>
-                                    </optgroup>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="tray_number" class="col-md-2 col-form-label">Tray Number: </label> 
-                            <div class="col-md-10">
-                                <input class="stop-return" name="tray_number" type="text" placeholder="Tray Number" autocomplete="off" required/>
-                            </div>
-                        </div>
-
-
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <h5>Scan your models/impressions (up to 14 baskets or 28 models if they are doubles) per tray</h5>
-                            </div>
-                        </div>  
-
-                       <div class="form-group row">
-                           <label for="qrCodeArea" class="col-md-2 col-form-label">Scan QR Codes: </label>
-                           <div class="col-md-10">
-                               <textArea name="qrCodeArea" id="qrCodeArea" rows="24" cols="50" required></textArea>
-                           </div>
-                       </div>
-
-                        <div class="form-group row">
-                            <div class="offset-md-2 col-md-10">
-                                <button id="submit" class="btn btn-primary" type="submit">Submit</button>
-                            </div>
-                        </div>
-                        
-                    </form>
+                    <p>Information about each form and their purposes</p>
+                   <ul>
+                       <li><a href="techaction-form.html">Tech Action Form</a></li>
+                       <ul>
+                           <li>Priority</li>
+                           <li>Tech Trimming</li>
+                           <li>Pouring</li>
+                           <li>Breaking</li>
+                           <li>Accepted Guard</li>
+                           <li>Repour Guard NOT Made</li>
+                           <li>Repour G.M.</li>
+                       </ul>
+                       <li><a href="traytracking-form.html">Tray Tracking Form</a></li>
+                       <ul>
+                           <li>Regular Tracking</li>
+                           <li>Priority Tracking</li>
+                       </ul>
+                       <li><a href="fixedrethermo-form.html">Fixed ReThermoforming Form</a></li>
+                       <ul>
+                           <li>Fixed Guards</li>
+                           <li>ReThermoforming</li>
+                       </ul>
+                       <li><a href="qualitythermo-form.html">Quality Thermoforming Form</a></li>
+                       <ul>
+                           <li>Thermoforming</li>
+                           <li>Quality Assurance</li>
+                       </ul>
+                   </ul>
                 </div>
             </div>
         </div>

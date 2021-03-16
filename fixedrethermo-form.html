@@ -8,22 +8,22 @@
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="css/styles.css"/>
 
-        <title>Clear Club - Quality Thermoforming</title>
+        <title>Clear Club - Fixed Thermoforming</title>
 
     </head>
     <body>
         <!-- navbar to toggle between forms -->
         <nav class="navbar navbar-dark bg-dark justify-content-center">
             <form class="form-inline">
-                <a href="index.html" class="btn btn-sm btn-outline-secondary">Tech Action </a>
-                <a href="traytrackingForm.html" class="btn btn-sm btn-outline-secondary">Tray Tracking</a>
-                <a href="fixedrethermoforming.html" class="btn btn-sm btn-outline-secondary">Fixed ReThermoforming</a>
-                <a href="" class="btn btn-outline-success">Quality Thermoforming</a>
+                <a href="techaction-form.html" class="btn btn-sm btn-outline-secondary">Tech Action </a>
+                <a href="traytracking-form.html" class="btn btn-sm btn-outline-secondary">Tray Tracking</a>
+                <a href="" class="btn btn-outline-success">Fixed ReThermoforming</a>
+                <a href="qualitythermo-form.html" class="btn btn-sm btn-outline-secondary">Quality Thermoforming</a>
             </form>
         </nav>
         
         <!-- header -->
-        <h1>Thermoforming | Quality Assurance<br>Form</h1>
+        <h1>Fixed Guards | ReThermoforming<br>Form</h1>
 
         <!-- form -->
         <div class="container">
@@ -34,15 +34,34 @@
                             <label for="task" class="col-md-2 col-form-label">Task: </label>
                             <div class="col-md-10">
                                 <select id="task" name="task" required>
-                                    <option selected>Choose...</option>
-                                    <option value="Thermoforming">Thermoforming</option>
-                                    <option value="Quality Assurance">Quality Assurance</option>
+                                    <option value="Choose..." selected>Choose...</option>
+                                    <option value="Fixed Guards">Fixed Guards</option>
+                                    <option value="ReThermoforming">ReThermoforming</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-2 col-form-label">Name: </label>
+                            <label for="name" class="col-md-2 col-form-label">Performer Name: </label>
+                            <div class="col-md-10">
+                                <select id="name" name="name" required>
+                                    <optgroup label="Supervisor Techs">
+                                        <option value="Tiffany">Tiffany</option>
+                                        <option value="Cristian">Cristian</option>
+                                    </optgroup>
+                                    <optgroup label="Techs">
+                                        <option value="Rachel">Rachel</option>
+                                        <option value="Maddie">Maddie</option>
+                                        <option value="Kevin">Kevin</option>"
+                                        <option value="Nicole">Nicole</option>
+                                        <option value="Kelly">Kelly</option>
+                                        <option value="Naomi">Naomi</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="tech_name" class="col-md-2 col-form-label">Trim Tech Name: </label>
                             <div class="col-md-10">
                                 <select id="name" name="name" required>
                                     <optgroup label="Supervisor Techs">
@@ -62,17 +81,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="tray_number" class="col-md-2 col-form-label">Tray Number: </label> 
-                            <div class="col-md-10">
-                                <input class="stop-return" name="tray_number" type="text" placeholder="Tray Number" autocomplete="off" required/>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
                             <div class="col-md-12">
                                 <h5>Scan your models/impressions (up to 14 baskets or 28 models if they are doubles) per tray</h5>
                             </div>
-                        </div>
+                        </div>  
 
                        <div class="form-group row">
                            <label for="qrCodeArea" class="col-md-2 col-form-label">Scan QR Codes: </label>
