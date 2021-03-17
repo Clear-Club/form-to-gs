@@ -8,73 +8,46 @@
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="css/styles.css"/>
 
-        <title>Clear Club - Tech Form</title>
+        <title>Clear Club - Non-Tech Form</title>
 
     </head>
     <body>
         <!-- navbar to toggle between forms -->
         <nav class="navbar navbar-dark bg-dark justify-content-center">
             <form class="form-inline">
-                <a href="" class="btn btn-outline-success">Tech Action </a>
+                <a href="techaction-form.html" class="btn btn-sm btn-outline-secondary">Tech Action </a>
                 <a href="traytracking-form.html" class="btn btn-sm btn-outline-secondary">Tray Tracking</a>
                 <a href="fixedrethermo-form.html" class="btn btn-sm btn-outline-secondary">Fixed ReThermoforming</a>
                 <a href="qualitythermo-form.html" class="btn btn-sm btn-outline-secondary">Quality Thermoforming</a>
-                <a href="nontech-form.html" class="btn btn-sm btn-outline-secondary">Non Tech</a>
+                <a href="" class="btn btn-outline-success">Non Tech</a>
             </form>
         </nav>
         
         <!-- header -->
-        <h1>Tech Action <br>Form</h1>
+        <h1>Non-Tech <br>Form</h1>
 
         <!-- form -->
         <div class="container">
 
             <p>
-                Instructions to using this form <br>
-                1) What task are you currently doing.<br>
-                2) Search for your name <br>
-                3) Scan Tray QR Code <br>
-                4) scan your impressions/models
+                For Non-Techs
             </p>
             <div class="row row-content">
                 <div class="col-md-10">
                     <form name='form-submission-gs' id='form-submission-gs'>
+                        <!-- task -->
                         <div class="form-group row">
                             <label for="task" class="col-md-2 col-form-label">Task: </label>
                             <div class="col-md-10">
-                                <select id="task" name="task" required>
+                                <select id="non-task" name="task" required>
                                     <option value="Choose..." selected>Choose...</option>
-                                    <option class="priority-red" value="Priority">Priority</option>
-                                    <option value="Tech Trimming">Tech Trimming</option>
-                                    <option value="Pouring">Pouring</option>
-                                    <option value="Breaking">Breaking</option>
-                                    <option value="Accepted Guards">Accepted Guards</option>
-                                    <option value="Repour Guard Not Made">Repour Guard NOT Made</option>
-                                    <option value="Repour G.M.">Repour G.M.</option>
+                                    <option class="priority-red" value="Priority Tracking">Priority Tracking</option>
+                                    <option value="Accepted Impressions">Accepted Impressions</option>
                                 </select>
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-2 col-form-label">Name: </label>
-                            <div class="col-md-10">
-                                <select id="name" name="name" required>
-                                    <optgroup label="Supervisor Techs">
-                                        <option value="Tiffany">Tiffany</option>
-                                        <option value="Cristian">Cristian</option>
-                                    </optgroup>
-                                    <optgroup label="Techs">
-                                        <option value="Rachel">Rachel</option>
-                                        <option value="Maddie">Maddie</option>
-                                        <option value="Kevin">Kevin</option>"
-                                        <option value="Nicole">Nicole</option>
-                                        <option value="Kelly">Kelly</option>
-                                        <option value="Naomi">Naomi</option>
-                                    </optgroup>
-                                </select>
-                            </div>
-                        </div>
-
+                        <!-- tray number -->
                         <div class="form-group row">
                             <label for="tray_number" class="col-md-2 col-form-label">Tray Number: </label> 
                             <div class="col-md-10">
@@ -82,8 +55,44 @@
                             </div>
                         </div>
 
+                        <!-- cart names -->
+                        <div class="form-group row hidden-option" id="toggle-carts">
+                            <label for="cart_name" class="col-md-2 col-form-label">Cart Name: </label>
+                            <div class="col-md-10">
+                                <select id="cart-name" name="cart_name">
+                                    <option value="Choose..." selected>Choose...</option>
+                                    <option value="Pouring">Pouring</option>
+                                    <option value="Breaking">Breaking</option>
+                                    <option value="Thermoforming">Thermoforming</option>
+                                    <option value="Trimming">Trimming</option>
+                                    <option value="Quality Assurance">Quality Assurance</option>
+                                    <option value="Accepted">Accepted</option>
+                                    <option value="Holding">Holding</option>
+                                    <option value="Repour Guard Made">Repour Guard Made</option>
+                                    <option value="Repour Guard Made Breaking">Repour Guard Made Breaking</option>
+                                </select>
+                            </div>
+                        </div>
 
-                        <div class="form-group row">
+                        <!-- name -->
+                        <div class="form-group row hidden-option" id="toggle-names">
+                            <label for="name" class="col-md-2 col-form-label">Name: </label>
+                            <div class="col-md-10">
+                                <select id="name" name="name" required>
+                                    <optgroup label="I'm no Tech">
+                                        <option value="Miguel">Miguel</option>
+                                        <option value="Andrea">Andrea</option>
+                                        <option value="Sofia">Sofia</option>"
+                                        <option value="Ginette">Ginette</option>
+                                        <option value="Ariste">Ariste</option>
+                                        <option value="Pablo">Pablo</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- scan impressions -->
+                        <div class="form-group row ">
                             <div class="col-md-12">
                                 <h5>Scan your models/impressions (up to 14 baskets or 28 models if they are doubles) per tray</h5>
                             </div>
