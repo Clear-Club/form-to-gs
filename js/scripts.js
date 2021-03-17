@@ -34,11 +34,35 @@ $(function() {
     $("#tracking").on("change", function() {
         // console.log($(this).val())
         if($(this).val() === "Priority Tracking") {
-            $("#toggle-priority").removeClass("hidden-priority");
+            $("#toggle-priority").removeClass("hidden-option");
             $("#qrCodeArea-tracking").attr("required", true);
         } else {
-            $("#toggle-priority").addClass("hidden-priority");
+            $("#toggle-priority").addClass("hidden-option");
             $("#qrCodeArea-tracking").attr("required", false);
+        }
+    });
+
+    // non-tech
+    // priority tracking || Accepted Impressions
+    $("#non-task").on("change", function() {
+        // enables cart && disables name
+        if($(this).val() === "Priority Tracking") {
+            $("#toggle-carts").removeClass("hidden-option");
+            $("#cart-name").attr("required", true);
+            $("#toggle-names").addClass("hidden-option");
+            $("#name").attr("required", false);
+            // enables name && disables cart
+        } else if($(this).val() === "Accepted Impressions") {
+            $("#toggle-names").removeClass("hidden-option");
+            $("#name").attr("required", true);
+            $("#toggle-carts").addClass("hidden-option");
+            $("#cart-name").attr("required", false);
+            // disables both cart and name
+        } else {
+            $("#toggle-carts").addClass("hidden-option");
+            $("#cart-name").attr("required", false);
+            $("#toggle-names").addClass("hidden-option");
+            $("#name").attr("required", false);
         }
     });
 
