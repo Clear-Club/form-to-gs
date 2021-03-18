@@ -36,9 +36,11 @@ $(function() {
         if($(this).val() === "Priority Tracking") {
             $("#toggle-priority").removeClass("hidden-option");
             $("#qrCodeArea-tracking").attr("required", true);
+            document.getElementById('tray-name').innerHTML = "Priority Tray Name:";
         } else {
             $("#toggle-priority").addClass("hidden-option");
             $("#qrCodeArea-tracking").attr("required", false);
+            document.getElementById('tray-name').innerHTML = "Tray Number:";
         }
     });
 
