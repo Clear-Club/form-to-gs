@@ -13,13 +13,13 @@
     </head>
     <body>
         <!-- navbar to toggle between forms -->
-        <nav class="navbar navbar-dark bg-dark justify-content-center">
+        <nav class="navbar navbar-light justify-content-center" style="background-color: #e3f2fd;">
             <form class="form-inline">
-                <a href="techaction-form.html" class="btn btn-sm btn-outline-secondary">Tech Action </a>
-                <a href="traytracking-form.html" class="btn btn-sm btn-outline-secondary">Tray Tracking</a>
-                <a href="fixedrethermo-form.html" class="btn btn-sm btn-outline-secondary">Fixed ReThermoforming</a>
-                <a href="qualitythermo-form.html" class="btn btn-sm btn-outline-secondary">Quality Thermoforming</a>
-                <a href="" class="btn btn-outline-success">Non Tech</a>
+                <a href="techaction-form.html" class="btn btn-outline-dark">Tech Action </a>
+                <a href="traytracking-form.html" class="btn btn-outline-dark">Tray Tracking</a>
+                <a href="fixedrethermo-form.html" class="btn btn-outline-dark">Fixed ReThermoforming</a>
+                <a href="qualitythermo-form.html" class="btn btn-outline-dark">Quality Thermoforming</a>
+                <a href="" class="btn btn-lg btn-primary">Non Tech</a>
             </form>
         </nav>
         
@@ -48,7 +48,7 @@
 
                         <!-- tray number -->
                         <div class="form-group row">
-                            <label for="tray_number" class="col-md-2 col-form-label">Tray Number: </label> 
+                            <label id="tray_number" for="tray_number" class="col-md-2 col-form-label">Destination Priority Tray Name: </label> 
                             <div class="col-md-10">
                                 <input class="stop-return" name="tray_number" type="text" placeholder="Tray Number" autocomplete="off" required/>
                             </div>
@@ -56,7 +56,7 @@
 
                         <!-- cart names -->
                         <div class="form-group row hidden-option" id="toggle-carts">
-                            <label for="cart_name" class="col-md-2 col-form-label">Cart Name: </label>
+                            <label for="cart_name" class="col-md-2 col-form-label">Destination Cart Name: </label>
                             <div class="col-md-10">
                                 <select id="cart-name" name="cart_name">
                                     <option value="Choose..." selected>Choose...</option>
@@ -78,6 +78,7 @@
                             <label for="name" class="col-md-2 col-form-label">Name: </label>
                             <div class="col-md-10">
                                 <select id="name" name="name" required>
+                                    <option value="Choose..." selected>Choose...</option>
                                     <optgroup label="I'm no Tech">
                                         <option value="Miguel">Miguel</option>
                                         <option value="Andrea">Andrea</option>

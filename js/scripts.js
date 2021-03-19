@@ -1,5 +1,5 @@
 // google sheets link
-const scriptURL = '';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbxZn2ohFwmNUA_qdZMz1j_xvKYZAXs55cvBFp5yA_ptbkMJtWdMin0XorFH5Jp1SJuVBA/exec';
 
 const form = document.getElementById('form-submission-gs');
 
@@ -14,7 +14,10 @@ form.addEventListener('submit', (e) => {
 
     e.preventDefault();
     console.log("form has been submitted!");
-    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+    fetch(scriptURL, { 
+        method: 'POST', 
+        body: new FormData(form) 
+    })
         .then(response => {
             console.log('Success!', response);
             alert('Form has been successfully submitted at' + todayDate());
@@ -36,7 +39,7 @@ $(function() {
         if($(this).val() === "Priority Tracking") {
             $("#toggle-priority").removeClass("hidden-option");
             $("#qrCodeArea-tracking").attr("required", true);
-            document.getElementById('tray-name').innerHTML = "Priority Tray Name:";
+            document.getElementById('tray-name').innerHTML = "Destination Priority Tray Name:";
         } else {
             $("#toggle-priority").addClass("hidden-option");
             $("#qrCodeArea-tracking").attr("required", false);
@@ -53,12 +56,14 @@ $(function() {
             $("#cart-name").attr("required", true);
             $("#toggle-names").addClass("hidden-option");
             $("#name").attr("required", false);
+            document.getElementById('tray_number').innerHTML = "Destination Priority Tray Name:";
             // enables name && disables cart
         } else if($(this).val() === "Accepted Impressions") {
             $("#toggle-names").removeClass("hidden-option");
             $("#name").attr("required", true);
             $("#toggle-carts").addClass("hidden-option");
             $("#cart-name").attr("required", false);
+            document.getElementById('tray_number').innerHTML = "Tray Number:";
             // disables both cart and name
         } else {
             $("#toggle-carts").addClass("hidden-option");
