@@ -13,13 +13,13 @@
     </head>
     <body>
         <!-- navbar to toggle between forms -->
-        <nav class="navbar navbar-dark bg-dark justify-content-center">
+        <nav class="navbar navbar-light justify-content-center" style="background-color: #e3f2fd;">
             <form class="form-inline">
-                <a href="" class="btn btn-outline-success">Tech Action </a>
-                <a href="traytracking-form.html" class="btn btn-sm btn-outline-secondary">Tray Tracking</a>
-                <a href="fixedrethermo-form.html" class="btn btn-sm btn-outline-secondary">Fixed ReThermoforming</a>
-                <a href="qualitythermo-form.html" class="btn btn-sm btn-outline-secondary">Quality Thermoforming</a>
-                <a href="nontech-form.html" class="btn btn-sm btn-outline-secondary">Non Tech</a>
+                <a href="" class="btn btn-lg btn-dark">Tech Action </a>
+                <a href="traytracking-form.html" class="btn btn-outline-dark">Tray Tracking</a>
+                <a href="fixedrethermo-form.html" class="btn btn-outline-dark">Fixed ReThermoforming</a>
+                <a href="qualitythermo-form.html" class="btn btn-outline-dark">Quality Thermoforming</a>
+                <a href="nontech-form.html" class="btn btn-outline-primary">Non Tech</a>
             </form>
         </nav>
         
@@ -59,6 +59,7 @@
                             <label for="name" class="col-md-2 col-form-label">Name: </label>
                             <div class="col-md-10">
                                 <select id="name" name="name" required>
+                                    <option value="Choose..." selected>Choose...</option>
                                     <optgroup label="Supervisor Techs">
                                         <option value="Tiffany">Tiffany</option>
                                         <option value="Cristian">Cristian</option>
