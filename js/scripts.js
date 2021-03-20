@@ -1,5 +1,5 @@
 // google sheets link
-const scriptURL = 'https://script.google.com/macros/s/AKfycbxZn2ohFwmNUA_qdZMz1j_xvKYZAXs55cvBFp5yA_ptbkMJtWdMin0XorFH5Jp1SJuVBA/exec';
+const scriptURL = '';
 
 const form = document.getElementById('form-submission-gs');
 
@@ -33,9 +33,41 @@ form.addEventListener('submit', (e) => {
 
 // handler for .ready()
 $(function() {
+    // Tech tracking form conditions
+    $("#what-task").on("change", function() {
+        switch($(this).val()) {
+            case "Tech Trimming":
+            case "Pouring":
+            case "Breaking":
+            case "Thermoforming":
+            case "Quality Assurance":
+            case "Tray Tracking":
+                $("#toggle-option").removeClass("hidden-option");
+        }
+    });
+
+    $("#is-priority").on("change", function() {
+        if($(this).val() === "Yes") {
+            // name tag
+            $("#toggle-name").removeClass("hidden-option");
+            // tray tag
+            $("#toggle-tray").removeClass("hidden-option");
+            document.getElementById("tray-label").innerHTML = "Priority Tray Name: ";
+            // qr code impression area
+            $("#toggle-impressions").removeClass("hidden-option");
+        } else if($(this).val() === "No") {
+            // name tag
+            $("#toggle-name").removeClass("hidden-option");
+            // tray tag
+            $("#toggle-tray").removeClass("hidden-option");
+            document.getElementById("tray-label").innerHTML = "Tray Number";
+            // qr text area
+            $("#toggle-impressions").removeClass("hidden-option");
+        }
+    });
+
     // tray tracking regular || priority tracking condition
     $("#tracking").on("change", function() {
-        // console.log($(this).val())
         if($(this).val() === "Priority Tracking") {
             $("#toggle-priority").removeClass("hidden-option");
             $("#qrCodeArea-tracking").attr("required", true);
