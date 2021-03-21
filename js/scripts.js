@@ -1,5 +1,5 @@
 // google sheets link
-const scriptURL = 'https://script.google.com/macros/s/AKfycbxZn2ohFwmNUA_qdZMz1j_xvKYZAXs55cvBFp5yA_ptbkMJtWdMin0XorFH5Jp1SJuVBA/exec';
+const scriptURL = '';
 
 const form = document.getElementById('form-submission-gs');
 
@@ -33,9 +33,91 @@ form.addEventListener('submit', (e) => {
 
 // handler for .ready()
 $(function() {
+    // Tech tracking form conditions
+    $("#what-task").on("change", function() {
+        switch($(this).val()) {
+            case "Tech Trimming":
+            case "Pouring":
+            case "Breaking":
+            case "Thermoforming":
+            case "Quality Assurance":
+            case "Tray Tracking":
+            case "Accepted Guards":
+                // priority yes || no
+                $("#toggle-option").removeClass("hidden-option");
+                $("#toggle-name").addClass("hidden-option");
+                $("#toggle-tray").addClass("hidden-option");
+                $("#toggle-impressions").addClass("hidden-option");
+                $("#toggle-submit").addClass("hidden-option");
+                $("#toggle-cart").addClass("hidden-option");
+                break;
+            // does not use priority
+            case "Repour Guard Not Made":
+            case "Repour G.M.":
+                $("#toggle-name").removeClass("hidden-option");
+                $("#toggle-tray").removeClass("hidden-option");
+                $("#toggle-impressions").removeClass("hidden-option");
+                $("#toggle-submit").removeClass("hidden-option");
+                break;
+            default:
+        }
+    });
+
+    // after choosing task; priority yes || no
+    $("#is-priority").on("change", function() {
+        if ($("#what-task").val() === "Tray Tracking" && $(this).val() === "Yes") {
+            // cart tag
+            $("#toggle-cart").removeClass("hidden-option");
+            // tray tag
+            $("#toggle-tray").removeClass("hidden-option");
+            document.getElementById("tray-label").innerHTML = "Priority Tray Name: ";
+            // qr code impression area
+            $("#toggle-impressions").removeClass("hidden-option");
+            // submit button
+            $("#toggle-submit").removeClass("hidden-option");
+            // name tag
+            $("#toggle-name").addClass("hidden-option");
+        } else if ($("#what-task").val() === "Tray Tracking" && $(this).val() === "No") {
+            // cart tag
+            $("#toggle-cart").removeClass("hidden-option");
+            // tray tag
+            $("#toggle-tray").removeClass("hidden-option");
+            document.getElementById("tray-label").innerHTML = "Tray Number: ";
+            // qr code impression area
+            $("#toggle-impressions").addClass("hidden-option");
+            // submit button
+            $("#toggle-submit").removeClass("hidden-option");
+        } else if($(this).val() === "Yes") {
+            // cart tag
+            $("#toggle-cart").addClass("hidden-option");
+            // name tag
+            $("#toggle-name").removeClass("hidden-option");
+            // tray tag
+            $("#toggle-tray").removeClass("hidden-option");
+            document.getElementById("tray-label").innerHTML = "Priority Tray Name: ";
+            // qr code impression area
+            $("#toggle-impressions").removeClass("hidden-option");
+            // submit button
+            $("#toggle-submit").removeClass("hidden-option");
+        } else if($(this).val() === "No") {
+            // cart tag
+            $("#toggle-cart").removeClass("hidden-option");
+            // name tag
+            $("#toggle-name").removeClass("hidden-option");
+            // tray tag
+            $("#toggle-tray").removeClass("hidden-option");
+            document.getElementById("tray-label").innerHTML = "Tray Number";
+            // qr text area
+            $("#toggle-impressions").removeClass("hidden-option");
+            // cart tag
+            $("#toggle-cart").addClass("hidden-option");
+            // submit button
+            $("#toggle-submit").removeClass("hidden-option");
+        }
+    });
+
     // tray tracking regular || priority tracking condition
     $("#tracking").on("change", function() {
-        // console.log($(this).val())
         if($(this).val() === "Priority Tracking") {
             $("#toggle-priority").removeClass("hidden-option");
             $("#qrCodeArea-tracking").attr("required", true);
@@ -73,7 +155,7 @@ $(function() {
         }
     });
 
-    // triggers to stop return or submit form for tray input tag
+    // disables return button tray input tag
     $(".stop-return").on("keypress", function(event) {
         if(event.which == '13') {
             event.preventDefault();
