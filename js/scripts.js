@@ -54,10 +54,12 @@ $(function() {
             // does not use priority
             case "Repour Guard Not Made":
             case "Repour G.M.":
+                $("#toggle-option").addClass("hidden-option");
                 $("#toggle-name").removeClass("hidden-option");
                 $("#toggle-tray").removeClass("hidden-option");
                 $("#toggle-impressions").removeClass("hidden-option");
                 $("#toggle-submit").removeClass("hidden-option");
+                document.getElementById("tray-label").innerHTML = "Tray Number: ";
                 break;
             default:
         }

@@ -1,7 +1,7 @@
 var sheetName = 'Logging';
 var scriptProp = PropertiesService.getScriptProperties();
-// Logger = BetterLog.useSpreadsheet('');
-// Logger.DATE_TIME_LAYOUT = "yyyy-MM-dd 'at' HH:mm:ss 'GMT'z '('Z')'";
+Logger = BetterLog.useSpreadsheet('');
+Logger.DATE_TIME_LAYOUT = "yyyy-MM-dd 'at' HH:mm:ss 'GMT'z '('Z')'";
 
 function intialSetup() {
     var activeSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
@@ -9,8 +9,8 @@ function intialSetup() {
 }
 
 function doPost(e) {
-    // var lock = LockService.getScriptLock();
-    // lock.tryLock(10000);
+    var lock = LockService.getScriptLock();
+    lock.tryLock(10000);
 
     try {
         var doc = SpreadsheetApp.openById(scriptProp.getProperty('key'));
@@ -21,52 +21,59 @@ function doPost(e) {
 
         var json = JSON.stringify(e.parameter);
         var obj = JSON.parse(json);
+        var task = obj["task"];
+
+        if (task === "Tray Tracking" && obj["priority"] === "Yes") {
+            task = "Priority Tracking";
+        } else if (obj["priority"] === "Yes") {
+            task = "Priority";
+        }
 
         Logger.log('JSON STRING:' + json);
 
-
-        switch (obj["task"]) {
+        // spreadsheet tab names
+        switch (task) {
             case "Tech Trimming":
-                specificTab(obj["task"], obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
-                break;
-            case "Trimming":
-                specificTab(obj["task"], obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Priority":
-                specificTab(obj["task"], obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Priority Tracking":
                 priorityTracking("Tray Tracking", obj["tray_number"], obj["cart_name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Pouring":
-                specificTab(obj["task"], obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Breaking":
-                specificTab(obj["task"], obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Accepted Guards":
-                specificTab(obj["task"], obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                break;
+            case "Accepted Impressions":
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Repour G.M.":
-                specificTab(obj["task"], obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Repour Guard Not Made":
-                specificTab(obj["task"], obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Tray Tracking":
-                regularTracking(obj["task"], obj["tray_number"], obj["cart_name"]);
+                regularTracking(task, obj["tray_number"], obj["cart_name"]);
                 break;
             case "Fixed Guards":
-                fixedReThermoformingtab(obj["task"], obj["name"], obj["tech_name"], obj["qrCodeArea"].split("\n"));
+                fixedReThermoformingtab(task, obj["name"], obj["tech_name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "ReThermoforming":
-                fixedReThermoformingtab(obj["task"], obj["name"], obj["tech_name"], obj["qrCodeArea"].split("\n"));
+                fixedReThermoformingtab(task, obj["name"], obj["tech_name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Quality Assurance":
-                qualityThermoTabs(obj["task"], obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                qualityThermoTabs(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Thermoforming":
-                qualityThermoTabs(obj["task"], obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                qualityThermoTabs(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
                 break;
             default:
                 Logger.log("option does not exist");
@@ -89,9 +96,9 @@ function doPost(e) {
             .setMimeType(ContentService.MimeType.JSON)
     }
 
-    // finally {
-    //     lock.releaseLock()
-    // }
+    finally {
+        lock.releaseLock()
+    }
 }
 
 // rethermoforming && fixed guards
@@ -139,14 +146,6 @@ function qualityThermoTabs(task, trayNum, techName, impressions) {
 
         lastRow++;
     }
-
-    // for(var i = 0; i < impressions.length - 1; i++){
-    //   var thickness = subSheetName.getRange(lastRow - (impressions.length - 1 + i), 5).getValue();
-    //   var notes = subSheetName.getRange(lastRow - (impressions.length - 1 + i), 6).getValue();
-    //   var quantity = subSheetName.getRange(lastRow - (impressions.length - 1 + i), 7).getValue();
-
-    //   lastRow++;
-    // }
 }
 
 // for thermoforming and quality assurance
@@ -163,7 +162,6 @@ function modifiedGetLastRow(range) {
             isBlank = false;
         }
     }
-
     return rowNum;
 }
 
@@ -171,6 +169,7 @@ function modifiedGetLastRow(range) {
 // Repour Guard Not Made
 // Repour GM
 // Accepted Guards
+// Accepted Impressions
 // Tech Trimming
 // Breaking
 // Pouring
@@ -209,7 +208,6 @@ function regularTracking(task, trayNum, cartName) {
     subSheetName.getRange(lastRow + 1, 1).setValue(date);
     subSheetName.getRange(lastRow + 1, 2).setValue(trayNum);
     subSheetName.getRange(lastRow + 1, 3).setValue(cartName);
-
 }
 
 // Priority Tracking
