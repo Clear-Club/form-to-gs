@@ -118,6 +118,7 @@ $(function() {
         }
     });
 
+    // DELETE BECAUSE WON'T USE
     // tray tracking regular || priority tracking condition
     $("#tracking").on("change", function() {
         if($(this).val() === "Priority Tracking") {
