@@ -1,5 +1,5 @@
 // google sheets link
-const scriptURL = ""
+const scriptURL = "https://script.google.com/macros/s/AKfycby9wvgDyjgdQLglnxX_ZLIE0k5BUzYcA-IWXInOvx_JJRu-dj9Ah2qCzB2_6vHgvmJHSg/exec"
 
 const form = document.getElementById('form-submission-gs');
 
@@ -24,7 +24,7 @@ form.addEventListener('submit', (e) => {
         })
         .catch(error => {
             console.error('Error!', error.message);
-            alert('error: please try again');
+            alert('BEEP BOOP: there is an error, please try again');
         });
 
     // resets form after submission 
