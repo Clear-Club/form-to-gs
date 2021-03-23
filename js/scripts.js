@@ -19,8 +19,12 @@ form.addEventListener('submit', (e) => {
         body: new FormData(form) 
     })
         .then(response => {
-            console.log('Success!', response);
-            alert('Form has been successfully submitted at' + todayDate());
+            if(response.ok) {
+                console.log('Success!', response);
+                alert('Form has been successfully submitted at' + todayDate());
+            } else {
+                alert("ERROR: PLEASE DOUBLE CHECK ")
+            }
         })
         .catch(error => {
             console.error('Error!', error.message);
