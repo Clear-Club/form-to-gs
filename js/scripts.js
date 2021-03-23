@@ -1,5 +1,7 @@
+require('dotenv').config();
+
 // google sheets link
-const scriptURL = '';
+const scriptURL = process.env.GOOGLE_SHEETS_WEBLINK;
 
 const form = document.getElementById('form-submission-gs');
 
