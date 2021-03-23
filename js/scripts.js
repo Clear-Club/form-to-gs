@@ -1,5 +1,5 @@
 // google sheets link
-const scriptURL = "https://script.google.com/macros/s/AKfycby9wvgDyjgdQLglnxX_ZLIE0k5BUzYcA-IWXInOvx_JJRu-dj9Ah2qCzB2_6vHgvmJHSg/exec"
+const scriptURL = "";
 
 const form = document.getElementById('form-submission-gs');
 
@@ -21,7 +21,7 @@ form.addEventListener('submit', (e) => {
         .then(response => {
             if(response.ok) {
                 console.log('Success!', response);
-                alert('Form has been successfully submitted at' + todayDate());
+                alert('Form has been successfully submitted at ' + todayDate() + "Response: " + response.status);
             } else {
                 alert("ERROR: PLEASE DOUBLE CHECK ")
             }
