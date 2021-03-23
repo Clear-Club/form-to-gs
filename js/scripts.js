@@ -1,7 +1,5 @@
-require('dotenv').config();
-
 // google sheets link
-const scriptURL = process.env.GOOGLE_SHEETS_WEBLINK;
+const scriptURL = ""
 
 const form = document.getElementById('form-submission-gs');
 
@@ -56,6 +54,7 @@ $(function() {
             // does not use priority
             case "Repour Guard Not Made":
             case "Repour G.M.":
+                $("#toggle-cart").addClass("hidden-option");
                 $("#toggle-option").addClass("hidden-option");
                 $("#toggle-name").removeClass("hidden-option");
                 $("#toggle-tray").removeClass("hidden-option");
@@ -120,20 +119,6 @@ $(function() {
         }
     });
 
-    // DELETE BECAUSE WON'T USE
-    // tray tracking regular || priority tracking condition
-    $("#tracking").on("change", function() {
-        if($(this).val() === "Priority Tracking") {
-            $("#toggle-priority").removeClass("hidden-option");
-            $("#qrCodeArea-tracking").attr("required", true);
-            document.getElementById('tray-name').innerHTML = "Destination Priority Tray Name:";
-        } else {
-            $("#toggle-priority").addClass("hidden-option");
-            $("#qrCodeArea-tracking").attr("required", false);
-            document.getElementById('tray-name').innerHTML = "Tray Number:";
-        }
-    });
-
     // non-tech
     // priority tracking || Accepted Impressions
     $("#non-task").on("change", function() {
@@ -145,7 +130,7 @@ $(function() {
             $("#name").attr("required", false);
             document.getElementById('tray_number').innerHTML = "Destination Priority Tray Name:";
             // enables name && disables cart
-        } else if($(this).val() === "Accepted Impressions") {
+        } else if ($(this).val() === "Accepted Impressions" || $(this).val() === "Repour G.M.") {
             $("#toggle-names").removeClass("hidden-option");
             $("#name").attr("required", true);
             $("#toggle-carts").addClass("hidden-option");
