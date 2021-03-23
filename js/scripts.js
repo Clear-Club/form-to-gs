@@ -23,11 +23,13 @@ form.addEventListener('submit', (e) => {
                 console.log('Success!', response);
                 alert('Form has been successfully submitted at ' + todayDate() + "Response: " + response.status);
             } else {
-                alert("ERROR: PLEASE DOUBLE CHECK ")
+                console.log(response);
+                alert("BEEP BOOP: ERROR please try again response: " + response.status);
             }
         })
         .catch(error => {
-            console.error('Error!', error.message);
+            // console.error('Error!', error.message);
+            console.log(error);
             alert('BEEP BOOP: there is an error, please try again');
         });
 
