@@ -24,12 +24,12 @@ form.addEventListener('submit', (e) => {
                 alert('Form has been successfully submitted at ' + todayDate() + "Response: " + response.status);
             } else {
                 console.log(response);
-                alert("BEEP BOOP: ERROR please try again response: " + response.status);
+                alert("Ohhh noooo!! ERROR please try again response: " + response.status);
             }
         })
         .catch(error => {
-            // console.error('Error!', error.message);
-            console.log(error);
+            console.log("Error!!" + error);
+            console.error('Error!', error.message);
             alert('BEEP BOOP: there is an error, please try again');
         });
 
@@ -122,6 +122,27 @@ $(function() {
             $("#toggle-cart").addClass("hidden-option");
             // submit button
             $("#toggle-submit").removeClass("hidden-option");
+        }
+    });
+
+    // Supervisor form
+    $("#supe-task").on("change", function() {
+        if ($(this).val() === "Quality Assurance" || $(this).val() === "Accepted Guards") {
+            $("#toggle-priority-supes").removeClass("hidden-option");
+            $("#toggle-tech-name").addClass("hidden-option");
+        }
+    });
+
+    // Priority yes || no FOR supervisor form
+    $("#is-priority-supes").on("change", function() {
+        if($(this).val() === "Yes") {
+            $("#toggle-tray-supes").removeClass("hidden-option");
+            document.getElementById("tray-label-supes").innerHTML = "Priority Tray Name:";
+            document.getElementById("tray-id").placeholder = "Priority Tray Name";
+        } else if($(this).val() === "No") {
+            $("#toggle-tray-supes").removeClass("hidden-option");
+            document.getElementById("tray-label-supes").innerHTML = "Tray Number:";
+            document.getElementById("tray-id").placeholder = "Tray Number";
         }
     });
 
