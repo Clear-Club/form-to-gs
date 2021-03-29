@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="css/styles.css"/>
 
-        <title>Clear Club - Fixed Thermoforming</title>
+        <title>Clear Club - Supervisor Form</title>
 
     </head>
     <body>
@@ -16,16 +16,13 @@
         <nav class="navbar navbar-light justify-content-center" style="background-color: #e3f2fd;"
             <form class="form-inline">
                 <a href="techtracking-form.html" class="btn btn-outline-dark">Tech Tracking </a>
-                <!-- <a href="techaction-form.html" class="btn btn-outline-dark">Tech Action </a> -->
-                <!-- <a href="traytracking-form.html" class="btn btn-outline-dark">Tray Tracking</a> -->
-                <a href="" class="btn btn-lg btn-dark">Fixed ReThermoforming</a>
-                <!-- <a href="qualitythermo-form.html" class="btn btn-outline-dark">Quality Thermoforming</a> -->
+                <a href="" class="btn btn-lg btn-dark">Supervisor</a>
                 <a href="nontech-form.html" class="btn btn-outline-primary">Non Tech</a>
             </form>
         </nav>
         
         <!-- header -->
-        <h1>Fixed Guards | ReThermoforming<br>Form</h1>
+        <h1>Fixed Guards | ReThermoforming <br> Accepted Guards | Quality Assurance<br>Form</h1>
 
         <!-- form -->
         <div class="container">
@@ -46,7 +43,7 @@
                         </div>
 
                         <!-- Is it a priority? -->
-                        <!-- For Quality Assurance -->
+                        <!-- For Quality Assurance  && Accepted Guards -->
                         <div class="form-group row hidden-option" id="toggle-priority-supes">
                             <label for="task" class="col-md-2 col-form-label">Priority?</label>
                             <div class="col-md-10">
@@ -59,7 +56,7 @@
                         </div>
 
                         <!-- Only Supervisor can authorize this -->
-                        <div class="form-group row">
+                        <div class="form-group row hidden-option" id="toggle-super-name">
                             <label for="name" class="col-md-2 col-form-label">Supervisor Name: </label>
                             <div class="col-md-10">
                                 <select id="name" name="name" required>
@@ -73,7 +70,8 @@
                         </div>
 
                         <!-- The tech undergoing guard procedure -->
-                        <div class="form-group row" id="toggle-tech-name">
+                        <!-- applies to Fixed Guards && ReThermoforming -->
+                        <div class="form-group row hidden-option" id="toggle-tech-name">
                             <label for="tech_name" class="col-md-2 col-form-label">Trim Tech Name: </label>
                             <div class="col-md-10">
                                 <select id="name" name="tech_name" required>
@@ -101,25 +99,27 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <h5>Scan your models/impressions (up to 14 baskets or 28 models if they are doubles) per tray</h5>
-                            </div>
-                        </div>  
+                        <!-- Scan Impressions -->
+                        <div class="hidden-option" id="toggle-impression-area">
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <h5>Scan your models/impressions (up to 14 baskets or 28 models if they are doubles) per tray</h5>
+                                </div>
+                            </div>  
 
-                       <div class="form-group row">
-                           <label for="qrCodeArea" class="col-md-2 col-form-label">Scan QR Codes: </label>
-                           <div class="col-md-10">
-                               <textArea name="qrCodeArea" id="qrCodeArea" rows="12" cols="50" required></textArea>
-                           </div>
+                            <div class="form-group row">
+                                <label for="qrCodeArea" class="col-md-2 col-form-label">Scan QR Codes: </label>
+                                <div class="col-md-10">
+                                    <textArea name="qrCodeArea" id="qrCodeArea" rows="12" cols="50" required></textArea>
+                                </div>
                        </div>
+                        </div>
 
                         <div class="form-group row">
                             <div class="offset-md-2 col-md-10">
                                 <button id="submit" class="btn btn-primary" type="submit">Submit</button>
                             </div>
                         </div>
-                        
                     </form>
                 </div>
             </div>

@@ -80,6 +80,7 @@ $(function() {
             // tray tag
             $("#toggle-tray").removeClass("hidden-option");
             document.getElementById("tray-label").innerHTML = "Priority Tray Name: ";
+            document.getElementById("tray-placeholder").placeholder = "Priority Tray Name";
             // qr code impression area
             $("#toggle-impressions").removeClass("hidden-option");
             // submit button
@@ -92,6 +93,7 @@ $(function() {
             // tray tag
             $("#toggle-tray").removeClass("hidden-option");
             document.getElementById("tray-label").innerHTML = "Tray Number: ";
+            document.getElementById("tray-placeholder").placeholder = "Tray Number";
             // qr code impression area
             $("#toggle-impressions").addClass("hidden-option");
             // submit button
@@ -124,30 +126,50 @@ $(function() {
             $("#toggle-submit").removeClass("hidden-option");
         }
     });
-
+    ///////////////////////////////////
     // Supervisor form
+    ///////////////////////////////////
     $("#supe-task").on("change", function() {
         if ($(this).val() === "Quality Assurance" || $(this).val() === "Accepted Guards") {
             $("#toggle-priority-supes").removeClass("hidden-option");
             $("#toggle-tech-name").addClass("hidden-option");
+            $("#toggle-super-name").addClass("hidden-option");
+            $("#toggle-tech-name").addClass("hidden-option");
+            $("#toggle-impression-area").addClass("hidden-option");
+        } else if ($(this).val() === "Fixed Guards" || $(this).val() === "ReThermoforming") {
+            $("#toggle-super-name").removeClass("hidden-option");
+            $("#toggle-tech-name").removeClass("hidden-option");
+            $("#toggle-impression-area").removeClass("hidden-option");
+            // if priority was enabled
+            $("#toggle-priority-supes").addClass("hidden-option");
+            $("#toggle-tray-supes").addClass("hidden-option");
+
         }
     });
 
     // Priority yes || no FOR supervisor form
     $("#is-priority-supes").on("change", function() {
         if($(this).val() === "Yes") {
+            $("#toggle-super-name").removeClass("hidden-option");
+            $("#toggle-tech-name").addClass("hidden-option");
             $("#toggle-tray-supes").removeClass("hidden-option");
             document.getElementById("tray-label-supes").innerHTML = "Priority Tray Name:";
             document.getElementById("tray-id").placeholder = "Priority Tray Name";
+            $("#toggle-impression-area").removeClass("hidden-option");
         } else if($(this).val() === "No") {
+            $("#toggle-super-name").removeClass("hidden-option");
             $("#toggle-tray-supes").removeClass("hidden-option");
+            $("#toggle-tech-name").addClass("hidden-option");
             document.getElementById("tray-label-supes").innerHTML = "Tray Number:";
             document.getElementById("tray-id").placeholder = "Tray Number";
+            $("#toggle-impression-area").removeClass("hidden-option");
         }
     });
 
+    /////////////////////////////////////////////
     // non-tech
     // priority tracking || Accepted Impressions
+    ///////////////////////////////////////////////
     $("#non-task").on("change", function() {
         // enables cart && disables name
         if($(this).val() === "Priority Tracking") {
@@ -156,6 +178,7 @@ $(function() {
             $("#toggle-names").addClass("hidden-option");
             $("#name").attr("required", false);
             document.getElementById('tray_number').innerHTML = "Destination Priority Tray Name:";
+            document.getElementById("tray-nontech-placeholder").placeholder = "Priority Tray Name";
             // enables name && disables cart
         } else if ($(this).val() === "Accepted Impressions" || $(this).val() === "Repour G.M.") {
             $("#toggle-names").removeClass("hidden-option");
@@ -163,6 +186,7 @@ $(function() {
             $("#toggle-carts").addClass("hidden-option");
             $("#cart-name").attr("required", false);
             document.getElementById('tray_number').innerHTML = "Tray Number:";
+            document.getElementById("tray-nontech-placeholder").placeholder = "Tray Number";
             // disables both cart and name
         } else {
             $("#toggle-carts").addClass("hidden-option");
