@@ -1,5 +1,5 @@
 // google sheets link
-const scriptURL = "";
+const scriptURL = "https://script.google.com/macros/s/AKfycbxq5bh8v-cxMz6Jfd5BV-JnVukKLbkOH0GvglyCR5tzJV3H5DqQat67i54fmyh52Z1Drw/exec";
 
 const form = document.getElementById('form-submission-gs');
 
@@ -39,7 +39,9 @@ form.addEventListener('submit', (e) => {
 
 // handler for .ready()
 $(function() {
-    // Tech tracking form conditions
+    //////////////////////////////////////
+    // Tech tracking
+    ///////////////////////////////////////
     $("#what-task").on("change", function() {
         switch($(this).val()) {
             case "Tech Trimming":
@@ -67,6 +69,8 @@ $(function() {
                 $("#toggle-impressions").removeClass("hidden-option");
                 $("#toggle-submit").removeClass("hidden-option");
                 document.getElementById("tray-label").innerHTML = "Tray Number: ";
+                document.getElementById("tray-placeholder").placeholder = "Tray Number";
+                document.getElementById("is-priority").value = "No";
                 break;
             default:
         }
@@ -106,6 +110,7 @@ $(function() {
             // tray tag
             $("#toggle-tray").removeClass("hidden-option");
             document.getElementById("tray-label").innerHTML = "Priority Tray Name: ";
+            document.getElementById("tray-placeholder").placeholder = "Priority Tray Name";
             // qr code impression area
             $("#toggle-impressions").removeClass("hidden-option");
             // submit button
@@ -118,6 +123,7 @@ $(function() {
             // tray tag
             $("#toggle-tray").removeClass("hidden-option");
             document.getElementById("tray-label").innerHTML = "Tray Number";
+            document.getElementById("tray-placeholder").placeholder = "Tray Number";
             // qr text area
             $("#toggle-impressions").removeClass("hidden-option");
             // cart tag
@@ -126,6 +132,7 @@ $(function() {
             $("#toggle-submit").removeClass("hidden-option");
         }
     });
+
     ///////////////////////////////////
     // Supervisor form
     ///////////////////////////////////
@@ -143,7 +150,7 @@ $(function() {
             // if priority was enabled
             $("#toggle-priority-supes").addClass("hidden-option");
             $("#toggle-tray-supes").addClass("hidden-option");
-
+            $("#tray-id").attr("required", false);
         }
     });
 
@@ -156,6 +163,7 @@ $(function() {
             document.getElementById("tray-label-supes").innerHTML = "Priority Tray Name:";
             document.getElementById("tray-id").placeholder = "Priority Tray Name";
             $("#toggle-impression-area").removeClass("hidden-option");
+            $("#tray-id").attr("required", true);
         } else if($(this).val() === "No") {
             $("#toggle-super-name").removeClass("hidden-option");
             $("#toggle-tray-supes").removeClass("hidden-option");
@@ -163,6 +171,7 @@ $(function() {
             document.getElementById("tray-label-supes").innerHTML = "Tray Number:";
             document.getElementById("tray-id").placeholder = "Tray Number";
             $("#toggle-impression-area").removeClass("hidden-option");
+            $("#tray-id").attr("required", true);
         }
     });
 
