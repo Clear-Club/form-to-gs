@@ -37,10 +37,12 @@
                             <label for="task" class="col-md-2 col-form-label">Task: </label>
                             <div class="col-md-10">
                                 <select id="non-task" name="task" required>
-                                    <option value="Choose..." selected>Choose...</option>
+                                    <option value="" selected>Choose...</option>
                                     <option class="priority-red" value="Priority Tracking">Priority Tracking</option>
                                     <option value="Accepted Impressions">Accepted Impressions</option>
                                     <option value="Repour G.M.">Repour G.M.</option>
+                                    <option value="">Repour G.M.</option>
+                                    <option value="Storage Check">Storage Check</option>
                                 </select>
                             </div>
                         </div>
@@ -49,7 +51,7 @@
                         <div class="form-group row">
                             <label id="tray_number" for="tray_number" class="col-md-2 col-form-label">Destination Priority Tray Name: </label> 
                             <div class="col-md-10">
-                                <input id="tray-nontech-placeholder" class="stop-return" name="tray_number" type="text" placeholder="Tray Number" autocomplete="off" required/>
+                                <input id="tray-nontech-placeholder" class="stop-return" name="tray_number" type="text" placeholder="Destination Tray Name" autocomplete="off" required/>
                             </div>
                         </div>
 
@@ -58,7 +60,7 @@
                             <label for="cart_name" class="col-md-2 col-form-label">Destination Cart Name: </label>
                             <div class="col-md-10">
                                 <select id="cart-name" name="cart_name">
-                                    <option value="Choose..." selected>Choose...</option>
+                                    <option value="" selected>Choose...</option>
                                     <option value="Pouring">Pouring</option>
                                     <option value="Breaking">Breaking</option>
                                     <option value="Thermoforming">Thermoforming</option>
@@ -72,12 +74,24 @@
                             </div>
                         </div>
 
+                        <!-- Check In/Out models -->
+                        <div class="form-group row">
+                            <label for="check-inout" class="col-md-2 col-form-label">Check In/Out: </label>
+                            <div class="col-md-10">
+                                <select id="check" name="check-inout" required>
+                                    <option value="" selected>Choose...</option>
+                                    <option value="In">Checking In</option>
+                                    <option value="Out">Checking Out</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <!-- name -->
                         <div class="form-group row hidden-option" id="toggle-names">
                             <label for="name" class="col-md-2 col-form-label">Name: </label>
                             <div class="col-md-10">
                                 <select id="name" name="name" required>
-                                    <option value="Choose..." selected>Choose...</option>
+                                    <option value="" selected>Choose...</option>
                                     <optgroup label="I'm no Tech">
                                         <option value="Miguel">Miguel</option>
                                         <option value="Andrea">Andrea</option>
@@ -86,6 +100,20 @@
                                         <option value="Ariste">Ariste</option>
                                         <option value="Pablo">Pablo</option>
                                     </optgroup>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Reason for checking out -->
+                        <div class="form-group row">
+                            <label for="reason" class="col-md-2 col-form-label">Reason: </label>
+                            <div class="col-md-10">
+                                <select id="check" name="check-inout" required>
+                                    <option value="" selected>Choose...</option>
+                                    <option value="Photo Review">Photo Review</option>
+                                    <option value="Customer Service">Customer Service</option>
+                                    <option value="Renewals">Renewals</option>
+                                    <option value="Priority">Priority</option>
                                 </select>
                             </div>
                         </div>
@@ -109,7 +137,6 @@
                                 <button id="submit" class="btn btn-primary" type="submit">Submit</button>
                             </div>
                         </div>
-                        
                     </form>
                 </div>
             </div>
