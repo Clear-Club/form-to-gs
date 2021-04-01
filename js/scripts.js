@@ -40,7 +40,7 @@ form.addEventListener('submit', (e) => {
 // handler for .ready()
 $(function() {
     //////////////////////////////////////
-    // Tech tracking
+    // Tech tracking page
     ///////////////////////////////////////
     $("#what-task").on("change", function() {
         switch($(this).val()) {
@@ -134,7 +134,7 @@ $(function() {
     });
 
     ///////////////////////////////////
-    // Supervisor form
+    // Supervisor page
     ///////////////////////////////////
     $("#supe-task").on("change", function() {
         if ($(this).val() === "Quality Assurance" || $(this).val() === "Accepted Guards") {
@@ -176,26 +176,41 @@ $(function() {
     });
 
     /////////////////////////////////////////////
-    // non-tech
-    // priority tracking || Accepted Impressions
+    // non-tech page
+    // priority tracking || Accepted Impressions || Storage Check
     ///////////////////////////////////////////////
     $("#non-task").on("change", function() {
         // enables cart && disables name
         if($(this).val() === "Priority Tracking") {
+            // form properties needed
+            $("#toggle-trays").removeClass("hidden-option");
+            $("#tray-nontech-placeholder").attr("required", true);
             $("#toggle-carts").removeClass("hidden-option");
             $("#cart-name").attr("required", true);
+            $("#toggle-scan-impressions").removeClass("hidden-option");
+            $("#qrCodeArea").attr("required", true);
+            // HIDE FORM PROPERTIES NOT NEEDED
+            $("#toggle-checking").addClass("hidden-option");
+            $("#check").attr("required", false);
             $("#toggle-names").addClass("hidden-option");
             $("#name").attr("required", false);
-            document.getElementById('tray_number').innerHTML = "Destination Priority Tray Name:";
-            document.getElementById("tray-nontech-placeholder").placeholder = "Priority Tray Name";
+            $("#toggle-reason").addClass("hidden-option");
+            $("#reason").attr("required", false);
+            
             // enables name && disables cart
         } else if ($(this).val() === "Accepted Impressions" || $(this).val() === "Repour G.M.") {
+            // needed fields
             $("#toggle-names").removeClass("hidden-option");
             $("#name").attr("required", true);
-            $("#toggle-carts").addClass("hidden-option");
-            $("#cart-name").attr("required", false);
+            $("#toggle-trays").removeClass("hidden-option");
+            $("#tray-nontech-placeholder").attr("required", true);
             document.getElementById('tray_number').innerHTML = "Tray Number:";
             document.getElementById("tray-nontech-placeholder").placeholder = "Tray Number";
+            $("#toggle-scan-impressions").removeClass("hidden-option");
+            $("#qrCodeArea").attr("required", true);
+            // NOT needed fields
+            $("#toggle-carts").addClass("hidden-option");
+            $("#cart-name").attr("required", false);
             // disables both cart and name
         } else {
             $("#toggle-carts").addClass("hidden-option");

@@ -9,7 +9,6 @@
         <link rel="stylesheet" href="css/styles.css"/>
 
         <title>Clear Club - Non-Tech Form</title>
-
     </head>
     <body>
         <!-- navbar to toggle between forms -->
@@ -41,17 +40,16 @@
                                     <option class="priority-red" value="Priority Tracking">Priority Tracking</option>
                                     <option value="Accepted Impressions">Accepted Impressions</option>
                                     <option value="Repour G.M.">Repour G.M.</option>
-                                    <option value="">Repour G.M.</option>
                                     <option value="Storage Check">Storage Check</option>
                                 </select>
                             </div>
                         </div>
 
                         <!-- tray number -->
-                        <div class="form-group row">
+                        <div class="form-group row hidden-option" id="toggle-trays">
                             <label id="tray_number" for="tray_number" class="col-md-2 col-form-label">Destination Priority Tray Name: </label> 
                             <div class="col-md-10">
-                                <input id="tray-nontech-placeholder" class="stop-return" name="tray_number" type="text" placeholder="Destination Tray Name" autocomplete="off" required/>
+                                <input id="tray-nontech-placeholder" class="stop-return" name="tray_number" type="text" placeholder="Destination Tray Name" autocomplete="off" />
                             </div>
                         </div>
 
@@ -75,7 +73,7 @@
                         </div>
 
                         <!-- Check In/Out models -->
-                        <div class="form-group row">
+                        <div class="form-group row hidden-option" id="toggle-checking">
                             <label for="check-inout" class="col-md-2 col-form-label">Check In/Out: </label>
                             <div class="col-md-10">
                                 <select id="check" name="check-inout" required>
@@ -105,10 +103,10 @@
                         </div>
 
                         <!-- Reason for checking out -->
-                        <div class="form-group row">
+                        <div class="form-group row hidden-option" id="toggle-reason">
                             <label for="reason" class="col-md-2 col-form-label">Reason: </label>
                             <div class="col-md-10">
-                                <select id="check" name="check-inout" required>
+                                <select id="reason" name="reason" required>
                                     <option value="" selected>Choose...</option>
                                     <option value="Photo Review">Photo Review</option>
                                     <option value="Customer Service">Customer Service</option>
@@ -119,19 +117,22 @@
                         </div>
 
                         <!-- scan impressions -->
-                        <div class="form-group row ">
-                            <div class="col-md-12">
-                                <h5>Scan your models/impressions (up to 14 baskets or 28 models if they are doubles) per tray</h5>
+                        <div class="hidden-option" id="toggle-scan-impressions">
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <h5>Scan your models/impressions (up to 14 baskets or 28 models if they are doubles) per tray</h5>
+                                </div>
+                            </div>  
+
+                            <div class="form-group row">
+                                <label for="qrCodeArea" class="col-md-2 col-form-label">Scan QR Codes: </label>
+                                <div class="col-md-10">
+                                    <textArea name="qrCodeArea" id="qrCodeArea" rows="12" cols="50" required></textArea>
+                                </div>
                             </div>
                         </div>  
 
-                       <div class="form-group row">
-                           <label for="qrCodeArea" class="col-md-2 col-form-label">Scan QR Codes: </label>
-                           <div class="col-md-10">
-                               <textArea name="qrCodeArea" id="qrCodeArea" rows="12" cols="50" required></textArea>
-                           </div>
-                       </div>
-
+                        <!-- submit button -->
                         <div class="form-group row">
                             <div class="offset-md-2 col-md-10">
                                 <button id="submit" class="btn btn-primary" type="submit">Submit</button>
