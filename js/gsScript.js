@@ -1,6 +1,6 @@
 var sheetName = 'Logging';
 var scriptProp = PropertiesService.getScriptProperties();
-Logger = BetterLog.useSpreadsheet('');
+Logger = BetterLog.useSpreadsheet('1LR_ncNaL2u1OrpjLHpi4bAGXCnPFkzLmgK1FkwCLJfI');
 Logger.DATE_TIME_LAYOUT = "yyyy-MM-dd 'at' HH:mm:ss 'GMT'z '('Z')'";
 
 function intialSetup() {
@@ -41,6 +41,9 @@ function doPost(e) {
                 break;
             case "Priority Tracking":
                 priorityTracking("Tray Tracking", obj["tray_number"], obj["cart_name"], obj["qrCodeArea"].split("\n"));
+                break;
+            case "Storage Check":
+                storageCheckTab(task, obj["check-inout"], obj["reason"], obj["name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Pouring":
                 specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
@@ -163,6 +166,28 @@ function modifiedGetLastRow(range) {
         }
     }
     return rowNum;
+}
+
+// applies to
+// Storage Check tab
+// format
+// date | Check In/Out | Reason | Employee Name | Model QR Code
+function storageCheckTab(task, checking, reason, employeeName, modelQRCodes) {
+    var spreadSheet = SpreadsheetApp.getActiveSpreadsheet();
+    var subSheetName = spreadSheet.getSheetByName(task);
+
+    var date = getDate();
+    var lastRow = subSheetName.getLastRow();
+
+    for (var i = 0; i < modelQRCodes.length - 1; i++) {
+        subSheetName.getRange(lastRow + 1, 1).setValue(date);
+        subSheetName.getRange(lastRow + 1, 2).setValue(checking);
+        subSheetName.getRange(lastRow + 1, 3).setValue(reason);
+        subSheetName.getRange(lastRow + 1, 4).setValue(employeeName);
+        subSheetName.getRange(lastRow + 1, 5).setValue(modelQRCodes[i]);
+
+        lastRow++;
+    }
 }
 
 // applies to
