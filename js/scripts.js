@@ -1,5 +1,5 @@
 // google sheets link
-const scriptURL = "";
+const scriptURL = "https://script.google.com/macros/s/AKfycbz8Arh9jIUTIOApcaJiAHE2dZKOzxD-8U8inmDUixbkYJCMMhd-l723xUlLl3yKLfYg7Q/exec";
 
 const form = document.getElementById('form-submission-gs');
 
@@ -22,19 +22,22 @@ form.addEventListener('submit', (e) => {
             if(response.ok) {
                 console.log('Success!', response);
                 alert('Form has been successfully submitted at ' + todayDate() + "Response: " + response.status);
+                window.location.href = window.location.href;
             } else {
                 console.log(response);
                 alert("Ohhh noooo!! ERROR please try again response: " + response.status);
+                window.location.href = window.location.href;
             }
         })
         .catch(error => {
             console.log("Error!!" + error);
             console.error('Error!', error.message);
             alert('BEEP BOOP: there is an error, please try again');
+            window.location.href = window.location.href;
         });
 
     // resets form after submission 
-    form.reset();
+    // form.reset();
 });
 
 // handler for .ready()
@@ -177,7 +180,6 @@ $(function() {
             $("#qrCodeArea").attr("required", true);
             // NOT NEEDED
             $("#toggle-priority-supes").addClass("hidden-option");
-            $("#name").attr("required", true);
             $("#toggle-tray-supes").addClass("hidden-option");
             $("#tray-id").attr("required", false);
         }
@@ -274,6 +276,19 @@ $(function() {
             $("#toggle-names").addClass("hidden-option");
             $("#name").attr("required", false);
 
+        }
+    });
+
+    // renewal -> show tray
+    $("#reason").on("change", function () {
+        if ($(this).val() === "Renewals") {
+            $("#toggle-trays").removeClass("hidden-option");
+            document.getElementById('tray_number').innerHTML = "Tray Number:";
+            document.getElementById("tray-nontech-placeholder").placeholder = "Tray Number";
+            $("#tray-nontech-placeholder").attr("required", true);
+        } else {
+            $("#toggle-trays").addClass("hidden-option");
+            $("#tray-nontech-placeholder").attr("required", false);
         }
     });
 

@@ -45,14 +45,6 @@
                             </div>
                         </div>
 
-                        <!-- tray number -->
-                        <div class="form-group row hidden-option" id="toggle-trays">
-                            <label id="tray_number" for="tray_number" class="col-md-2 col-form-label">Destination Priority Tray Name: </label> 
-                            <div class="col-md-10">
-                                <input id="tray-nontech-placeholder" class="stop-return" name="tray_number" type="text" placeholder="Destination Tray Name" autocomplete="off" />
-                            </div>
-                        </div>
-
                         <!-- cart names -->
                         <div class="form-group row hidden-option" id="toggle-carts">
                             <label for="cart_name" class="col-md-2 col-form-label">Destination Cart Name: </label>
@@ -109,10 +101,19 @@
                                 <select id="reason" name="reason" required>
                                     <option value="" selected>Choose...</option>
                                     <option value="Photo Review">Photo Review</option>
-                                    <option value="Customer Service">Customer Service</option>
+                                    <option value="Customer Success">Customer Success</option>
                                     <option value="Renewals">Renewals</option>
                                     <option value="Priority">Priority</option>
+                                    <option value="Checking In">Checking In</option>
                                 </select>
+                            </div>
+                        </div>
+
+                        <!-- Tray Information -->
+                        <div class="form-group row hidden-option" id="toggle-trays">
+                            <label id="tray_number" for="tray_number" class="col-md-2 col-form-label">Destination Priority Tray Name: </label> 
+                            <div class="col-md-10">
+                                <input id="tray-nontech-placeholder" class="stop-return" name="tray_number" type="text" placeholder="Destination Tray Name" autocomplete="off" />
                             </div>
                         </div>
 
