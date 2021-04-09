@@ -1,5 +1,5 @@
 // google sheets link
-const scriptURL = "https://script.google.com/macros/s/AKfycbz8Arh9jIUTIOApcaJiAHE2dZKOzxD-8U8inmDUixbkYJCMMhd-l723xUlLl3yKLfYg7Q/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbwmThPmBTOSN7hnQNLD-SNBe7YcsxEWlC0OgAE2xyCUy-zm_4fo_dhxcxrSgREJo4bkxA/exec";
 
 const form = document.getElementById('form-submission-gs');
 
@@ -292,7 +292,9 @@ $(function() {
         }
     });
 
-    // disables return button tray input tag
+    ///////////////////////////////////////////
+    // disables return button when scanning tray qr code
+    ///////////////////////////////////////////
     $(".stop-return").on("keypress", function(event) {
         if(event.which == '13') {
             event.preventDefault();

@@ -43,7 +43,7 @@ function doPost(e) {
                 priorityTracking("Tray Tracking", obj["tray_number"], obj["cart_name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Storage Check":
-                storageCheckTab(task, obj["check-inout"], obj["reason"], obj["name"], obj["qrCodeArea"].split("\n"));
+                storageCheckTab(task, obj["check-inout"], obj["reason"], obj["name"], obj["tray_number"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Pouring":
                 specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
@@ -171,8 +171,8 @@ function modifiedGetLastRow(range) {
 // applies to
 // Storage Check tab
 // format
-// date | Check In/Out | Reason | Employee Name | Model QR Code
-function storageCheckTab(task, checking, reason, employeeName, modelQRCodes) {
+// date | Check In/Out | Reason | Employee Name | Model QR Code | Tray Number
+function storageCheckTab(task, checking, reason, employeeName, trayNum, modelQRCodes) {
     var spreadSheet = SpreadsheetApp.getActiveSpreadsheet();
     var subSheetName = spreadSheet.getSheetByName(task);
 
@@ -185,6 +185,7 @@ function storageCheckTab(task, checking, reason, employeeName, modelQRCodes) {
         subSheetName.getRange(lastRow + 1, 3).setValue(reason);
         subSheetName.getRange(lastRow + 1, 4).setValue(employeeName);
         subSheetName.getRange(lastRow + 1, 5).setValue(modelQRCodes[i]);
+        subSheetName.getRange(lastRow + 1, 6).setValue(trayNum);
 
         lastRow++;
     }
