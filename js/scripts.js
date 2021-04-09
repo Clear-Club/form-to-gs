@@ -22,22 +22,23 @@ form.addEventListener('submit', (e) => {
             if(response.ok) {
                 console.log('Success!', response);
                 alert('Form has been successfully submitted at ' + todayDate() + "Response: " + response.status);
-                window.location.href = window.location.href;
+                // window.location.href = window.location.href;
             } else {
                 console.log(response);
                 alert("Ohhh noooo!! ERROR please try again response: " + response.status);
-                window.location.href = window.location.href;
+                // window.location.href = window.location.href;
             }
         })
         .catch(error => {
             console.log("Error!!" + error);
             console.error('Error!', error.message);
             alert('BEEP BOOP: there is an error, please try again');
-            window.location.href = window.location.href;
+            // window.location.href = window.location.href;
         });
 
     // resets form after submission 
-    // form.reset();
+    // window.location.href = window.location.href;
+    form.reset();
 });
 
 // handler for .ready()
