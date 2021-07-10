@@ -1,5 +1,5 @@
 // google sheets link
-const scriptURL = "https://script.google.com/macros/s/AKfycbwgxgltE7Betd0F5GvcU3I7rYUgjbSWOKRTyHxLNZQP5TgB6fJLWft1BUkqc8dNZJx5/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbxxBsu37tKMKH9v3GmEHDixETEn9Yq-cx-BIKESoz7iVv4i0vGwFpZOHtaEX9DZMS0T/exec";
 
 const form = document.getElementById('form-submission-gs');
 
@@ -55,7 +55,7 @@ $(function() {
             case "Breaking":
             case "Thermoforming":
             case "Quality Assurance":
-            case "Tray Tracking":
+            // case "Tray Tracking":
             case "Accepted Guards":
                 // priority yes || no
                 $("#toggle-option").removeClass("hidden-option");
@@ -77,8 +77,9 @@ $(function() {
                 $("#toggle-impressions").removeClass("hidden-option");
                 $("#qrCodeArea-tracking").attr("required", true);
                 $("#toggle-submit").removeClass("hidden-option");
+                $("#toggle-cart").removeClass("hidden-option");
                 // NOT NEEDED
-                $("#toggle-cart").addClass("hidden-option");
+                // $("#toggle-cart").addClass("hidden-option");
                 $("#task").attr("required", false);
                 $("#toggle-option").addClass("hidden-option");
                 document.getElementById("is-priority").value = "No";
@@ -89,35 +90,36 @@ $(function() {
 
     // after choosing task; priority yes || no
     $("#is-priority").on("change", function() {
-        if ($("#what-task").val() === "Tray Tracking" && $(this).val() === "Yes") {
-            // needed elements
-            $("#toggle-cart").removeClass("hidden-option");
-            $("#task").attr("required", true);
-            $("#toggle-tray").removeClass("hidden-option");
-            document.getElementById("tray-label").innerHTML = "Priority Tray Name: ";
-            document.getElementById("tray-placeholder").placeholder = "Priority Tray Name";
-            $("#tray-placeholder").attr("required", true);
-            $("#toggle-impressions").removeClass("hidden-option");
-            $("#qrCodeArea-tracking").attr("required", true);
-            $("#toggle-submit").removeClass("hidden-option");
-            // NOT NEEDED
-            $("#toggle-name").addClass("hidden-option");
-            $("#name").attr("required", false);
-        } else if ($("#what-task").val() === "Tray Tracking" && $(this).val() === "No") {
-            // NEEDED ELEMENTS
-            $("#toggle-cart").removeClass("hidden-option");
-            $("#task").attr("required", true);
-            $("#toggle-tray").removeClass("hidden-option");
-            document.getElementById("tray-label").innerHTML = "Tray Number: ";
-            document.getElementById("tray-placeholder").placeholder = "Tray Number";
-            $("#tray-placeholder").attr("required", true);
-            $("#toggle-submit").removeClass("hidden-option");
-            // NOT NEEDED ELEMENTS
-            $("#toggle-impressions").addClass("hidden-option");
-            $("#qrCodeArea-tracking").attr("required", false);
-            $("#toggle-name").addClass("hidden-option");
-            $("#name").attr("required", false);
-        } else if($(this).val() === "Yes") {
+        // if ($("#what-task").val() === "Tray Tracking" && $(this).val() === "Yes") {
+        //     // needed elements
+        //     $("#toggle-cart").removeClass("hidden-option");
+        //     $("#task").attr("required", true);
+        //     $("#toggle-tray").removeClass("hidden-option");
+        //     document.getElementById("tray-label").innerHTML = "Priority Tray Name: ";
+        //     document.getElementById("tray-placeholder").placeholder = "Priority Tray Name";
+        //     $("#tray-placeholder").attr("required", true);
+        //     $("#toggle-impressions").removeClass("hidden-option");
+        //     $("#qrCodeArea-tracking").attr("required", true);
+        //     $("#toggle-submit").removeClass("hidden-option");
+        //     // NOT NEEDED
+        //     $("#toggle-name").addClass("hidden-option");
+        //     $("#name").attr("required", false);
+        // } else if ($("#what-task").val() === "Tray Tracking" && $(this).val() === "No") {
+        //     // NEEDED ELEMENTS
+        //     $("#toggle-cart").removeClass("hidden-option");
+        //     $("#task").attr("required", true);
+        //     $("#toggle-tray").removeClass("hidden-option");
+        //     document.getElementById("tray-label").innerHTML = "Tray Number: ";
+        //     document.getElementById("tray-placeholder").placeholder = "Tray Number";
+        //     $("#tray-placeholder").attr("required", true);
+        //     $("#toggle-submit").removeClass("hidden-option");
+        //     // NOT NEEDED ELEMENTS
+        //     $("#toggle-impressions").addClass("hidden-option");
+        //     $("#qrCodeArea-tracking").attr("required", false);
+        //     $("#toggle-name").addClass("hidden-option");
+        //     $("#name").attr("required", false);
+        // } else 
+        if($(this).val() === "Yes") {
             // NEEDED
             $("#toggle-name").removeClass("hidden-option");
             $("#name").attr("required", true);
@@ -128,8 +130,9 @@ $(function() {
             $("#toggle-impressions").removeClass("hidden-option");
             $("#qrCodeArea-tracking").attr("required", true);
             $("#toggle-submit").removeClass("hidden-option");
+            $("#toggle-cart").removeClass("hidden-option");
             // NOT NEEDED
-            $("#toggle-cart").addClass("hidden-option");
+            // $("#toggle-cart").addClass("hidden-option");
             $("#task").attr("required", false);
         } else if($(this).val() === "No") {
             // NEEDED
@@ -144,8 +147,9 @@ $(function() {
             $("#toggle-impressions").removeClass("hidden-option");
             $("#qrCodeArea-tracking").attr("required", true);
             $("#toggle-submit").removeClass("hidden-option");
+            $("#toggle-cart").removeClass("hidden-option");
             // NOT NEEDED
-            $("#toggle-cart").addClass("hidden-option");
+            // $("#toggle-cart").addClass("hidden-option");
             $("#task").attr("required", false);
             // submit button
             $("#toggle-submit").removeClass("hidden-option");
@@ -198,6 +202,7 @@ $(function() {
             $("#tray-id").attr("required", true);
             $("#toggle-impression-area").removeClass("hidden-option");
             $("#tray-id").attr("required", true);
+            $("#toggle-cart").removeClass("hidden-option");
             // NOT NEEDED
             $("#toggle-tech-name").addClass("hidden-option");
             $("#tech-name").attr("required", false);
@@ -211,6 +216,7 @@ $(function() {
             $("#tray-id").attr("required", true);
             $("#toggle-impression-area").removeClass("hidden-option");
             $("#qrCodeArea").attr("required", true);
+            $("#toggle-cart").removeClass("hidden-option");
             // NOT NEEDED
             $("#toggle-tech-name").addClass("hidden-option");
             $("#tech-name").attr("required", false);
