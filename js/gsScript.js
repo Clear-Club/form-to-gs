@@ -1,6 +1,6 @@
 var sheetName = 'Logging';
 var scriptProp = PropertiesService.getScriptProperties();
-Logger = BetterLog.useSpreadsheet('1LR_ncNaL2u1OrpjLHpi4bAGXCnPFkzLmgK1FkwCLJfI');
+Logger = BetterLog.useSpreadsheet('13e4dZKP8NhduWUoxTNM8rSqVsS9nLEnCrJQ_YfXkrw4');
 Logger.DATE_TIME_LAYOUT = "yyyy-MM-dd 'at' HH:mm:ss 'GMT'z '('Z')'";
 
 function intialSetup() {
@@ -19,22 +19,24 @@ function doPost(e) {
         // var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
         // var nextRow = sheet.getLastRow() + 1;
 
+        Logger.log('before JSON: ' + JSON.stringify(e));
+
         var json = JSON.stringify(e.parameter);
         var obj = JSON.parse(json);
         var task = obj["task"];
 
-        if (task === "Tray Tracking" && obj["priority"] === "Yes") {
-            task = "Priority Tracking";
-        } else if (obj["priority"] === "Yes") {
-            task = "Priority";
-        }
+        // if (task === "Tray Tracking" && obj["priority"] === "Yes") {
+        //     task = "Priority Tracking";
+        // } else if (obj["priority"] === "Yes") {
+        //     task = "Priority";
+        // }
 
-        Logger.log('JSON STRING:' + json);
+        // Logger.log('JSON STRING:' + json);
 
         // spreadsheet tab names
         switch (task) {
             case "Tech Trimming":
-                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"), obj["priority"], obj["cart_name"]);
                 break;
             case "Priority":
                 specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
@@ -46,13 +48,13 @@ function doPost(e) {
                 storageCheckTab(task, obj["check-inout"], obj["reason"], obj["name"], obj["tray_number"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Pouring":
-                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"), obj["priority"], obj["cart_name"]);
                 break;
             case "Breaking":
-                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"), obj["priority"], obj["cart_name"]);
                 break;
             case "Accepted Guards":
-                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"), obj["priority"], obj["cart_name"]);
                 break;
             case "Accepted Impressions":
                 specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
@@ -63,9 +65,9 @@ function doPost(e) {
             case "Repour Guard Not Made":
                 specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
                 break;
-            case "Tray Tracking":
-                regularTracking(task, obj["tray_number"], obj["cart_name"]);
-                break;
+            // case "Tray Tracking":
+            //     regularTracking(task, obj["tray_number"], obj["cart_name"]);
+            //     break;
             case "Fixed Guards":
                 fixedReThermoformingtab(task, obj["name"], obj["tech_name"], obj["qrCodeArea"].split("\n"));
                 break;
@@ -73,10 +75,10 @@ function doPost(e) {
                 fixedReThermoformingtab(task, obj["name"], obj["tech_name"], obj["qrCodeArea"].split("\n"));
                 break;
             case "Quality Assurance":
-                qualityThermoTabs(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                qualityThermoTabs(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"), obj["priority"], obj["cart_name"]);
                 break;
             case "Thermoforming":
-                qualityThermoTabs(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                qualityThermoTabs(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"), obj["priority"], obj["cart_name"]);
                 break;
             default:
                 Logger.log("option does not exist");
@@ -88,9 +90,13 @@ function doPost(e) {
 
         // sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow]);
 
+        // return ContentService
+        //     // .createTextOutput(JSON.stringify({ 'result': 'success', 'row': nextRow }))
+        //     // .setMimeType(ContentService.MimeType.JSON)
         return ContentService
-            .createTextOutput(JSON.stringify({ 'result': 'success', 'row': nextRow }))
-            .setMimeType(ContentService.MimeType.JSON)
+        .createTextOutput(JSON.stringify({ 'result': 'success', 'row': nextRow }));
+        // .setMimeType(ContentService.MimeType.TEXT) // Maybe you can omit this line.
+
     }
 
     catch (e) {
@@ -100,8 +106,9 @@ function doPost(e) {
     }
 
     finally {
-        lock.releaseLock()
+        lock.releaseLock();
     }
+
 }
 
 // rethermoforming && fixed guards
@@ -126,7 +133,7 @@ function fixedReThermoformingtab(task, name, techName, impressions) {
 }
 
 // applies to thermoforming and quality assurance
-function qualityThermoTabs(task, trayNum, techName, impressions) {
+function qualityThermoTabs(task, trayNum, techName, impressions, priority, destCartName) {
     var spreadSheet = SpreadsheetApp.getActiveSpreadsheet();
     var subSheetName = spreadSheet.getSheetByName(task);
 
@@ -146,6 +153,8 @@ function qualityThermoTabs(task, trayNum, techName, impressions) {
         subSheetName.getRange(lastRow + 1, 2).setValue(trayNum);
         subSheetName.getRange(lastRow + 1, 3).setValue(techName);
         subSheetName.getRange(lastRow + 1, 4).setValue(impressions[i]);
+        subSheetName.getRange(lastRow + 1, 5).setValue(priority);
+        subSheetName.getRange(lastRow + 1, 6).setValue(destCartName);
 
         lastRow++;
     }
@@ -203,7 +212,7 @@ function storageCheckTab(task, checking, reason, employeeName, trayNum, modelQRC
 // Priority
 // FORMAT
 // date | tray QR Code | Employee QR Code | Impressing QR Code
-function specificTab(task, trayNum, techName, impressions) {
+function specificTab(task, trayNum, techName, impressions, priority, destCartName) {
     var spreadSheet = SpreadsheetApp.getActiveSpreadsheet();
     var subSheetName = spreadSheet.getSheetByName(task);
 
@@ -215,6 +224,8 @@ function specificTab(task, trayNum, techName, impressions) {
         subSheetName.getRange(lastRow + 1, 2).setValue(trayNum);
         subSheetName.getRange(lastRow + 1, 3).setValue(techName);
         subSheetName.getRange(lastRow + 1, 4).setValue(impressions[i]);
+        subSheetName.getRange(lastRow + 1, 5).setValue(priority);
+        subSheetName.getRange(lastRow + 1, 6).setValue(destCartName);
 
         lastRow++;
     }
@@ -223,18 +234,19 @@ function specificTab(task, trayNum, techName, impressions) {
 // Tray Tracking
 // format
 // date | tray # | cart Name
-function regularTracking(task, trayNum, cartName) {
-    var spreadSheet = SpreadsheetApp.getActiveSpreadsheet();
-    var subSheetName = spreadSheet.getSheetByName(task);
+// DECOMMISSIONED
+// function regularTracking(task, trayNum, cartName) {
+//     var spreadSheet = SpreadsheetApp.getActiveSpreadsheet();
+//     var subSheetName = spreadSheet.getSheetByName(task);
 
-    var date = getDate();
+//     var date = getDate();
 
-    var lastRow = subSheetName.getLastRow();
+//     var lastRow = subSheetName.getLastRow();
 
-    subSheetName.getRange(lastRow + 1, 1).setValue(date);
-    subSheetName.getRange(lastRow + 1, 2).setValue(trayNum);
-    subSheetName.getRange(lastRow + 1, 3).setValue(cartName);
-}
+//     subSheetName.getRange(lastRow + 1, 1).setValue(date);
+//     subSheetName.getRange(lastRow + 1, 2).setValue(trayNum);
+//     subSheetName.getRange(lastRow + 1, 3).setValue(cartName);
+// }
 
 // Priority Tracking
 // will still post to Tray Tracking Form but different parameters
