@@ -57,10 +57,10 @@ function doPost(e) {
                 specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"), obj["priority"], obj["cart_name"]);
                 break;
             case "Accepted Impressions":
-                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"), obj["priority"], obj["cart_name"]);
                 break;
             case "Repour G.M.":
-                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"), obj["priority"], obj["cart_name"]);
                 break;
             case "Repour Guard Not Made":
                 specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
