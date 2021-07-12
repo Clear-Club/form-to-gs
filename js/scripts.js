@@ -1,315 +1,274 @@
-// google sheets link
-const scriptURL = "https://script.google.com/macros/s/AKfycbxxBsu37tKMKH9v3GmEHDixETEn9Yq-cx-BIKESoz7iVv4i0vGwFpZOHtaEX9DZMS0T/exec";
+var sheetName = 'Logging';
+var scriptProp = PropertiesService.getScriptProperties();
+Logger = BetterLog.useSpreadsheet('13e4dZKP8NhduWUoxTNM8rSqVsS9nLEnCrJQ_YfXkrw4');
+Logger.DATE_TIME_LAYOUT = "yyyy-MM-dd 'at' HH:mm:ss 'GMT'z '('Z')'";
 
-const form = document.getElementById('form-submission-gs');
+function intialSetup() {
+    var activeSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    scriptProp.setProperty('key', activeSpreadsheet.getId());
+}
 
-// // form for all form types in different pages
-form.addEventListener('submit', (e) => {
-    // prints log information with date
-    var consoleFormData = new FormData(form);
-    console.log(todayDate());
-    for(var pair of consoleFormData.entries()) {
-        console.log(pair[0] + ', ' + pair[1]);
-    }
+function doPost(e) {
+    var lock = LockService.getScriptLock();
+    lock.tryLock(10000);
 
-    e.preventDefault();
-    console.log("form has been submitted!");
-    fetch(scriptURL, { 
-        method: 'POST', 
-        body: new FormData(form) 
-    })
-        .then(response => {
-            if(response.ok) {
-                console.log('Success!', response);
-                alert('Form has been successfully submitted at ' + todayDate() + "Response: " + response.status);
-                // window.location.href = window.location.href;
-            } else {
-                console.log(response);
-                alert("Ohhh noooo!! ERROR please try again response: " + response.status);
-                // window.location.href = window.location.href;
-            }
-        })
-        .catch(error => {
-            console.log("Error!!" + error);
-            console.error('Error!', error.message);
-            alert('BEEP BOOP: there is an error, please try again');
-            // window.location.href = window.location.href;
-        });
+    try {
+        var doc = SpreadsheetApp.openById(scriptProp.getProperty('key'));
+        var sheet = doc.getSheetByName(sheetName);
 
-    // resets form after submission 
-    // window.location.href = window.location.href;
-    form.reset();
-});
+        // var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+        // var nextRow = sheet.getLastRow() + 1;
 
-// handler for .ready()
-$(function() {
-    //////////////////////////////////////
-    // Tech tracking page
-    // Trimming | Priority | Tray Tracking | Pouring
-    // Breaking | Repour Guard NOT Made | Thermoforming
-    ///////////////////////////////////////
-    $("#what-task").on("change", function() {
-        switch($(this).val()) {
+        Logger.log('before JSON: ' + JSON.stringify(e));
+
+        var json = JSON.stringify(e.parameter);
+        var obj = JSON.parse(json);
+        var task = obj["task"];
+
+        // if (task === "Tray Tracking" && obj["priority"] === "Yes") {
+        //     task = "Priority Tracking";
+        // } else if (obj["priority"] === "Yes") {
+        //     task = "Priority";
+        // }
+
+        // Logger.log('JSON STRING:' + json);
+
+        // spreadsheet tab names
+        switch (task) {
             case "Tech Trimming":
-            case "Pouring":
-            case "Breaking":
-            case "Thermoforming":
-            case "Quality Assurance":
-            // case "Tray Tracking":
-            case "Accepted Guards":
-                // priority yes || no
-                $("#toggle-option").removeClass("hidden-option");
-                $("#toggle-name").addClass("hidden-option");
-                $("#toggle-tray").addClass("hidden-option");
-                $("#toggle-impressions").addClass("hidden-option");
-                $("#toggle-submit").addClass("hidden-option");
-                $("#toggle-cart").addClass("hidden-option");
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"), obj["priority"], obj["cart_name"]);
                 break;
-            // does not use priority
+            case "Priority":
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                break;
+            case "Priority Tracking":
+                priorityTracking("Tray Tracking", obj["tray_number"], obj["cart_name"], obj["qrCodeArea"].split("\n"));
+                break;
+            case "Storage Check":
+                storageCheckTab(task, obj["check-inout"], obj["reason"], obj["name"], obj["tray_number"], obj["qrCodeArea"].split("\n"));
+                break;
+            case "Pouring":
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"), obj["priority"], obj["cart_name"]);
+                break;
+            case "Breaking":
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"), obj["priority"], obj["cart_name"]);
+                break;
+            case "Accepted Guards":
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"), obj["priority"], obj["cart_name"]);
+                break;
+            case "Accepted Impressions":
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"), obj["priority"], obj["cart_name"]);
+                break;
+            case "Repour G.M.":
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"), obj["priority"], obj["cart_name"]);
+                break;
             case "Repour Guard Not Made":
-                // NEEDED
-                $("#toggle-name").removeClass("hidden-option");
-                $("#name").attr("required", true);
-                $("#toggle-tray").removeClass("hidden-option");
-                document.getElementById("tray-label").innerHTML = "Tray Number: ";
-                document.getElementById("tray-placeholder").placeholder = "Tray Number";
-                $("#tray-placeholder").attr("required", true);
-                $("#toggle-impressions").removeClass("hidden-option");
-                $("#qrCodeArea-tracking").attr("required", true);
-                $("#toggle-submit").removeClass("hidden-option");
-                $("#toggle-cart").removeClass("hidden-option");
-                // NOT NEEDED
-                // $("#toggle-cart").addClass("hidden-option");
-                $("#task").attr("required", false);
-                $("#toggle-option").addClass("hidden-option");
-                document.getElementById("is-priority").value = "No";
+                specificTab(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"));
+                break;
+            // case "Tray Tracking":
+            //     regularTracking(task, obj["tray_number"], obj["cart_name"]);
+            //     break;
+            case "Fixed Guards":
+                fixedReThermoformingtab(task, obj["name"], obj["tech_name"], obj["qrCodeArea"].split("\n"));
+                break;
+            case "ReThermoforming":
+                fixedReThermoformingtab(task, obj["name"], obj["tech_name"], obj["qrCodeArea"].split("\n"));
+                break;
+            case "Quality Assurance":
+                qualityThermoTabs(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"), obj["priority"], obj["cart_name"]);
+                break;
+            case "Thermoforming":
+                qualityThermoTabs(task, obj["tray_number"], obj["name"], obj["qrCodeArea"].split("\n"), obj["priority"], obj["cart_name"]);
                 break;
             default:
+                Logger.log("option does not exist");
         }
-    });
 
-    // after choosing task; priority yes || no
-    $("#is-priority").on("change", function() {
-        // if ($("#what-task").val() === "Tray Tracking" && $(this).val() === "Yes") {
-        //     // needed elements
-        //     $("#toggle-cart").removeClass("hidden-option");
-        //     $("#task").attr("required", true);
-        //     $("#toggle-tray").removeClass("hidden-option");
-        //     document.getElementById("tray-label").innerHTML = "Priority Tray Name: ";
-        //     document.getElementById("tray-placeholder").placeholder = "Priority Tray Name";
-        //     $("#tray-placeholder").attr("required", true);
-        //     $("#toggle-impressions").removeClass("hidden-option");
-        //     $("#qrCodeArea-tracking").attr("required", true);
-        //     $("#toggle-submit").removeClass("hidden-option");
-        //     // NOT NEEDED
-        //     $("#toggle-name").addClass("hidden-option");
-        //     $("#name").attr("required", false);
-        // } else if ($("#what-task").val() === "Tray Tracking" && $(this).val() === "No") {
-        //     // NEEDED ELEMENTS
-        //     $("#toggle-cart").removeClass("hidden-option");
-        //     $("#task").attr("required", true);
-        //     $("#toggle-tray").removeClass("hidden-option");
-        //     document.getElementById("tray-label").innerHTML = "Tray Number: ";
-        //     document.getElementById("tray-placeholder").placeholder = "Tray Number";
-        //     $("#tray-placeholder").attr("required", true);
-        //     $("#toggle-submit").removeClass("hidden-option");
-        //     // NOT NEEDED ELEMENTS
-        //     $("#toggle-impressions").addClass("hidden-option");
-        //     $("#qrCodeArea-tracking").attr("required", false);
-        //     $("#toggle-name").addClass("hidden-option");
-        //     $("#name").attr("required", false);
-        // } else 
-        if($(this).val() === "Yes") {
-            // NEEDED
-            $("#toggle-name").removeClass("hidden-option");
-            $("#name").attr("required", true);
-            $("#toggle-tray").removeClass("hidden-option");
-            document.getElementById("tray-label").innerHTML = "Priority Tray Name: ";
-            document.getElementById("tray-placeholder").placeholder = "Priority Tray Name";
-            $("#tray-placeholder").attr("required", true);
-            $("#toggle-impressions").removeClass("hidden-option");
-            $("#qrCodeArea-tracking").attr("required", true);
-            $("#toggle-submit").removeClass("hidden-option");
-            $("#toggle-cart").removeClass("hidden-option");
-            // NOT NEEDED
-            // $("#toggle-cart").addClass("hidden-option");
-            $("#task").attr("required", false);
-        } else if($(this).val() === "No") {
-            // NEEDED
-            $("#toggle-cart").removeClass("hidden-option");
-            $("#task").attr("required", true);
-            $("#toggle-name").removeClass("hidden-option");
-            $("#name").attr("required", true);
-            $("#toggle-tray").removeClass("hidden-option");
-            document.getElementById("tray-label").innerHTML = "Tray Number";
-            document.getElementById("tray-placeholder").placeholder = "Tray Number";
-            $("#tray-placeholder").attr("required", true);
-            $("#toggle-impressions").removeClass("hidden-option");
-            $("#qrCodeArea-tracking").attr("required", true);
-            $("#toggle-submit").removeClass("hidden-option");
-            $("#toggle-cart").removeClass("hidden-option");
-            // NOT NEEDED
-            // $("#toggle-cart").addClass("hidden-option");
-            $("#task").attr("required", false);
-            // submit button
-            $("#toggle-submit").removeClass("hidden-option");
+        // var newRow = headers.map(function(header) {
+        //   return header === 'timestamp' ? new Date() : e.parameter[header]
+        // })
+
+        // sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow]);
+
+        // return ContentService
+        //     // .createTextOutput(JSON.stringify({ 'result': 'success', 'row': nextRow }))
+        //     // .setMimeType(ContentService.MimeType.JSON)
+        return ContentService
+        .createTextOutput(JSON.stringify({ 'result': 'success', 'row': nextRow }));
+        // .setMimeType(ContentService.MimeType.TEXT) // Maybe you can omit this line.
+
+    }
+
+    catch (e) {
+        return ContentService
+            .createTextOutput(JSON.stringify({ 'result': 'error', 'error': e }))
+            .setMimeType(ContentService.MimeType.JSON)
+    }
+
+    finally {
+        lock.releaseLock();
+    }
+
+}
+
+// rethermoforming && fixed guards
+// format
+// date | Impressing QR Code | Employee QR Code
+function fixedReThermoformingtab(task, name, techName, impressions) {
+    var spreadSheet = SpreadsheetApp.getActiveSpreadsheet();
+    var subSheetName = spreadSheet.getSheetByName(task);
+
+    var date = getDate();
+    var lastRow = subSheetName.getLastRow();
+
+    // add impressions to last line
+    for (var i = 0; i < impressions.length - 1; i++) {
+        subSheetName.getRange(lastRow + 1, 1).setValue(date);
+        subSheetName.getRange(lastRow + 1, 2).setValue(name);
+        subSheetName.getRange(lastRow + 1, 3).setValue(techName);
+        subSheetName.getRange(lastRow + 1, 4).setValue(impressions[i]);
+
+        lastRow++;
+    }
+}
+
+// applies to thermoforming and quality assurance
+function qualityThermoTabs(task, trayNum, techName, impressions, priority, destCartName) {
+    var spreadSheet = SpreadsheetApp.getActiveSpreadsheet();
+    var subSheetName = spreadSheet.getSheetByName(task);
+
+    var date = getDate();
+
+    // selected column to check for first empty cell
+    var columnToCheck = subSheetName.getRange("D:D").getValues();
+
+    // get last row
+    var lastRow = modifiedGetLastRow(columnToCheck);
+
+    // var lastRow = subSheetName.getLastRow();
+
+    // add impressions to last line
+    for (var i = 0; i < impressions.length - 1; i++) {
+        subSheetName.getRange(lastRow + 1, 1).setValue(date);
+        subSheetName.getRange(lastRow + 1, 2).setValue(trayNum);
+        subSheetName.getRange(lastRow + 1, 3).setValue(techName);
+        subSheetName.getRange(lastRow + 1, 4).setValue(impressions[i]);
+        subSheetName.getRange(lastRow + 1, 5).setValue(priority);
+        subSheetName.getRange(lastRow + 1, 6).setValue(destCartName);
+
+        lastRow++;
+    }
+}
+
+// for thermoforming and quality assurance
+// since it has formulas going down sheet
+function modifiedGetLastRow(range) {
+    var rowNum = 0;
+    var isBlank = false;
+
+    for (var row = 0; row < range.length; row++) {
+        if (range[row][0] === "" && !isBlank) {
+            rowNum = row;
+            isBlank = true;
+        } else if (range[row][0] !== "") {
+            isBlank = false;
         }
-    });
+    }
+    return rowNum;
+}
 
-    ///////////////////////////////////
-    // Supervisor page
-    // Fixed Guards | ReThermoforming | Accepted Guards | Quality Assurance
-    ///////////////////////////////////
-    $("#supe-task").on("change", function() {
-        if ($(this).val() === "Quality Assurance" || $(this).val() === "Accepted Guards") {
-            // NEEDED for priority
-            $("#toggle-priority-supes").removeClass("hidden-option");
-            // NOT NEEDED
-            $("#toggle-tech-name").addClass("hidden-option");
-            $("#tech-name").attr("required", false);
-            $("#toggle-super-name").addClass("hidden-option");
-            $("#name").attr("required", false);
-            $("#toggle-tech-name").addClass("hidden-option");
-            $("#tech-name").attr("required", false);
-            $("#toggle-impression-area").addClass("hidden-option");
-            $("#qrCodeArea").attr("required", false);
-            $("#toggle-tray-supes").addClass("hidden-option");
-            $("#tray-id").attr("required", false);
-        } else if ($(this).val() === "Fixed Guards" || $(this).val() === "ReThermoforming") {
-            // NEEDED
-            $("#toggle-super-name").removeClass("hidden-option");
-            $("#name").attr("required", true);
-            $("#toggle-tech-name").removeClass("hidden-option");
-            $("#tech-name").attr("required", true);
-            $("#toggle-impression-area").removeClass("hidden-option");
-            $("#qrCodeArea").attr("required", true);
-            // NOT NEEDED
-            $("#toggle-priority-supes").addClass("hidden-option");
-            $("#toggle-tray-supes").addClass("hidden-option");
-            $("#tray-id").attr("required", false);
-        }
-    });
+// applies to
+// Storage Check tab
+// format
+// date | Check In/Out | Reason | Employee Name | Model QR Code | Tray Number
+function storageCheckTab(task, checking, reason, employeeName, trayNum, modelQRCodes) {
+    var spreadSheet = SpreadsheetApp.getActiveSpreadsheet();
+    var subSheetName = spreadSheet.getSheetByName(task);
 
-    // Priority yes || no FOR supervisor form
-    $("#is-priority-supes").on("change", function() {
-        if($(this).val() === "Yes") {
-            // NEEDED
-            $("#toggle-super-name").removeClass("hidden-option");
-            $("#name").attr("required", true);
-            $("#toggle-tray-supes").removeClass("hidden-option");
-            document.getElementById("tray-label-supes").innerHTML = "Priority Tray Name:";
-            document.getElementById("tray-id").placeholder = "Priority Tray Name";
-            $("#tray-id").attr("required", true);
-            $("#toggle-impression-area").removeClass("hidden-option");
-            $("#tray-id").attr("required", true);
-            $("#toggle-cart").removeClass("hidden-option");
-            // NOT NEEDED
-            $("#toggle-tech-name").addClass("hidden-option");
-            $("#tech-name").attr("required", false);
-        } else if($(this).val() === "No") {
-            // NEEDED
-            $("#toggle-super-name").removeClass("hidden-option");
-            $("#name").attr("required", true);
-            $("#toggle-tray-supes").removeClass("hidden-option");
-            document.getElementById("tray-label-supes").innerHTML = "Tray Number:";
-            document.getElementById("tray-id").placeholder = "Tray Number";
-            $("#tray-id").attr("required", true);
-            $("#toggle-impression-area").removeClass("hidden-option");
-            $("#qrCodeArea").attr("required", true);
-            $("#toggle-cart").removeClass("hidden-option");
-            // NOT NEEDED
-            $("#toggle-tech-name").addClass("hidden-option");
-            $("#tech-name").attr("required", false);
-        }
-    });
+    var date = getDate();
+    var lastRow = subSheetName.getLastRow();
 
-    /////////////////////////////////////////////
-    // non-tech page
-    // priority tracking || Accepted Impressions || Storage Check
-    ///////////////////////////////////////////////
-    $("#non-task").on("change", function() {
-        if($(this).val() === "Priority Tracking") {
-            // form properties needed
-            $("#toggle-trays").removeClass("hidden-option");
-            $("#tray-nontech-placeholder").attr("required", true);
-            document.getElementById('tray_number').innerHTML = "Destination Priority Tray name:";
-            document.getElementById("tray-nontech-placeholder").placeholder = "Priority Tray Name";
-            $("#toggle-carts").removeClass("hidden-option");
-            $("#cart-name").attr("required", true);
-            $("#toggle-scan-impressions").removeClass("hidden-option");
-            $("#qrCodeArea").attr("required", true);
-            // HIDE FORM PROPERTIES NOT NEEDED
-            $("#toggle-checking").addClass("hidden-option");
-            $("#check").attr("required", false);
-            $("#toggle-names").addClass("hidden-option");
-            $("#name").attr("required", false);
-            $("#toggle-reason").addClass("hidden-option");
-            $("#reason").attr("required", false);
-        } else if ($(this).val() === "Accepted Impressions" || $(this).val() === "Repour G.M.") {
-            // needed fields
-            $("#toggle-names").removeClass("hidden-option");
-            $("#name").attr("required", true);
-            $("#toggle-trays").removeClass("hidden-option");
-            $("#tray-nontech-placeholder").attr("required", true);
-            document.getElementById('tray_number').innerHTML = "Tray Number:";
-            document.getElementById("tray-nontech-placeholder").placeholder = "Tray Number";
-            $("#toggle-scan-impressions").removeClass("hidden-option");
-            $("#qrCodeArea").attr("required", true);
-            // NOT needed fields
-            $("#toggle-carts").addClass("hidden-option");
-            $("#cart-name").attr("required", false);
-            $("#toggle-checking").addClass("hidden-option");
-            $("#check").attr("required", false);
-            $("#toggle-reason").addClass("hidden-option");
-            $("#reason").attr("required", false);
-        } else if ($(this).val() === "Storage Check") {
-            // needed fields
-            $("#toggle-checking").removeClass("hidden-option");
-            $("#check").attr("required", true);
-            $("#toggle-names").removeClass("hidden-option");
-            $("#name").attr("required", true);
-            $("#toggle-reason").removeClass("hidden-option");
-            $("#reason").attr("required", true);
-            $("#toggle-scan-impressions").removeClass("hidden-option");
-            $("#qrCodeArea").attr("required", true);
-            // DONT NEED
-            $("#toggle-trays").addClass("hidden-option");
-            $("#tray-nontech-placeholder").attr("required", false);
-            $("#toggle-carts").addClass("hidden-option");
-            $("#cart-name").attr("required", false);
-        } else {
-            $("#toggle-carts").addClass("hidden-option");
-            $("#cart-name").attr("required", false);
-            $("#toggle-names").addClass("hidden-option");
-            $("#name").attr("required", false);
+    for (var i = 0; i < modelQRCodes.length - 1; i++) {
+        subSheetName.getRange(lastRow + 1, 1).setValue(date);
+        subSheetName.getRange(lastRow + 1, 2).setValue(checking);
+        subSheetName.getRange(lastRow + 1, 3).setValue(reason);
+        subSheetName.getRange(lastRow + 1, 4).setValue(employeeName);
+        subSheetName.getRange(lastRow + 1, 5).setValue(modelQRCodes[i]);
+        subSheetName.getRange(lastRow + 1, 6).setValue(trayNum);
 
-        }
-    });
+        lastRow++;
+    }
+}
 
-    // renewal -> show tray
-    $("#reason").on("change", function () {
-        if ($(this).val() === "Renewals") {
-            $("#toggle-trays").removeClass("hidden-option");
-            document.getElementById('tray_number').innerHTML = "Tray Number:";
-            document.getElementById("tray-nontech-placeholder").placeholder = "Tray Number";
-            $("#tray-nontech-placeholder").attr("required", true);
-        } else {
-            $("#toggle-trays").addClass("hidden-option");
-            $("#tray-nontech-placeholder").attr("required", false);
-        }
-    });
+// applies to
+// Repour Guard Not Made
+// Repour GM
+// Accepted Guards
+// Accepted Impressions
+// Tech Trimming
+// Breaking
+// Pouring
+// Priority Tracking
+// Priority
+// FORMAT
+// date | tray QR Code | Employee QR Code | Impressing QR Code
+function specificTab(task, trayNum, techName, impressions, priority, destCartName) {
+    var spreadSheet = SpreadsheetApp.getActiveSpreadsheet();
+    var subSheetName = spreadSheet.getSheetByName(task);
 
-    ///////////////////////////////////////////
-    // disables return button when scanning tray qr code
-    ///////////////////////////////////////////
-    $(".stop-return").on("keypress", function(event) {
-        if(event.which == '13') {
-            event.preventDefault();
-        }
-    });
-});
+    var date = getDate();
+    var lastRow = subSheetName.getLastRow();
 
-// prints new date
-function todayDate() {
-    return new Date;
+    for (var i = 0; i < impressions.length - 1; i++) {
+        subSheetName.getRange(lastRow + 1, 1).setValue(date);
+        subSheetName.getRange(lastRow + 1, 2).setValue(trayNum);
+        subSheetName.getRange(lastRow + 1, 3).setValue(techName);
+        subSheetName.getRange(lastRow + 1, 4).setValue(impressions[i]);
+        subSheetName.getRange(lastRow + 1, 5).setValue(priority);
+        subSheetName.getRange(lastRow + 1, 6).setValue(destCartName);
+
+        lastRow++;
+    }
+}
+
+// Tray Tracking
+// format
+// date | tray # | cart Name
+// DECOMMISSIONED
+// function regularTracking(task, trayNum, cartName) {
+//     var spreadSheet = SpreadsheetApp.getActiveSpreadsheet();
+//     var subSheetName = spreadSheet.getSheetByName(task);
+
+//     var date = getDate();
+
+//     var lastRow = subSheetName.getLastRow();
+
+//     subSheetName.getRange(lastRow + 1, 1).setValue(date);
+//     subSheetName.getRange(lastRow + 1, 2).setValue(trayNum);
+//     subSheetName.getRange(lastRow + 1, 3).setValue(cartName);
+// }
+
+// Priority Tracking
+// will still post to Tray Tracking Form but different parameters
+// date | tray # | cart Name | Impressions
+function priorityTracking(task, trayNum, cartName, impressions) {
+    var spreadSheet = SpreadsheetApp.getActiveSpreadsheet();
+    var subSheetName = spreadSheet.getSheetByName(task);
+
+    var date = getDate();
+    var lastRow = subSheetName.getLastRow();
+
+    for (var i = 0; i < impressions.length - 1; i++) {
+        subSheetName.getRange(lastRow + 1, 1).setValue(date);
+        subSheetName.getRange(lastRow + 1, 2).setValue(trayNum);
+        subSheetName.getRange(lastRow + 1, 3).setValue(cartName);
+        subSheetName.getRange(lastRow + 1, 4).setValue(impressions[i]);
+
+        lastRow++;
+    }
+}
+
+// returns new date
+function getDate() {
+    return new Date();
 }
