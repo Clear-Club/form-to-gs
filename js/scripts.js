@@ -57,7 +57,7 @@ $(function() {
             case "Quality Assurance":
             // case "Tray Tracking":
             case "Accepted Guards":
-                // priority yes || no
+                // Is it priority? yes || no
                 $("#toggle-option").removeClass("hidden-option");
                 $("#toggle-name").addClass("hidden-option");
                 $("#toggle-tray").addClass("hidden-option");
@@ -78,9 +78,10 @@ $(function() {
                 $("#qrCodeArea-tracking").attr("required", true);
                 $("#toggle-submit").removeClass("hidden-option");
                 $("#toggle-cart").removeClass("hidden-option");
+                $("#task").attr("required", true);
                 // NOT NEEDED
                 // $("#toggle-cart").addClass("hidden-option");
-                $("#task").attr("required", false);
+                // $("#task").attr("required", false);
                 $("#toggle-option").addClass("hidden-option");
                 document.getElementById("is-priority").value = "No";
                 break;
@@ -131,9 +132,10 @@ $(function() {
             $("#qrCodeArea-tracking").attr("required", true);
             $("#toggle-submit").removeClass("hidden-option");
             $("#toggle-cart").removeClass("hidden-option");
+            $("#task").attr("required", true);
             // NOT NEEDED
             // $("#toggle-cart").addClass("hidden-option");
-            $("#task").attr("required", false);
+            // $("#task").attr("required", false);
         } else if($(this).val() === "No") {
             // NEEDED
             $("#toggle-cart").removeClass("hidden-option");
@@ -148,9 +150,10 @@ $(function() {
             $("#qrCodeArea-tracking").attr("required", true);
             $("#toggle-submit").removeClass("hidden-option");
             $("#toggle-cart").removeClass("hidden-option");
+            $("#task").attr("required", true);
             // NOT NEEDED
             // $("#toggle-cart").addClass("hidden-option");
-            $("#task").attr("required", false);
+            // $("#task").attr("required", false);
             // submit button
             $("#toggle-submit").removeClass("hidden-option");
         }
@@ -203,6 +206,7 @@ $(function() {
             $("#toggle-impression-area").removeClass("hidden-option");
             $("#tray-id").attr("required", true);
             $("#toggle-cart").removeClass("hidden-option");
+            $("#task").attr("required", true);
             // NOT NEEDED
             $("#toggle-tech-name").addClass("hidden-option");
             $("#tech-name").attr("required", false);
@@ -217,6 +221,7 @@ $(function() {
             $("#toggle-impression-area").removeClass("hidden-option");
             $("#qrCodeArea").attr("required", true);
             $("#toggle-cart").removeClass("hidden-option");
+            $("#task").attr("required", true);
             // NOT NEEDED
             $("#toggle-tech-name").addClass("hidden-option");
             $("#tech-name").attr("required", false);
@@ -256,9 +261,10 @@ $(function() {
             $("#toggle-scan-impressions").removeClass("hidden-option");
             $("#qrCodeArea").attr("required", true);
             $("#toggle-carts").removeClass("hidden-option");
+            $("#cart-name").attr("required", true);
             // NOT needed fields
             // $("#toggle-carts").addClass("hidden-option");
-            $("#cart-name").attr("required", false);
+            // $("#cart-name").attr("required", false);
             $("#toggle-checking").addClass("hidden-option");
             $("#check").attr("required", false);
             $("#toggle-reason").addClass("hidden-option");
