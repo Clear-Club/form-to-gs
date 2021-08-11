@@ -1,5 +1,5 @@
 // google sheets link
-const scriptURL = "https://script.google.com/macros/s/AKfycbzjkT9hZ_byP3yaEGhw0oTnG6q3FSr9_gCwVqnxJqWUwV8ugpWWOKRdZQw9V7hr81OIHQ/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbxxBsu37tKMKH9v3GmEHDixETEn9Yq-cx-BIKESoz7iVv4i0vGwFpZOHtaEX9DZMS0T/exec";
 
 const form = document.getElementById('form-submission-gs');
 
@@ -78,10 +78,9 @@ $(function() {
                 $("#qrCodeArea-tracking").attr("required", true);
                 $("#toggle-submit").removeClass("hidden-option");
                 $("#toggle-cart").removeClass("hidden-option");
-                $("#task").attr("required", true);
                 // NOT NEEDED
                 // $("#toggle-cart").addClass("hidden-option");
-                // $("#task").attr("required", false);
+                $("#task").attr("required", false);
                 $("#toggle-option").addClass("hidden-option");
                 document.getElementById("is-priority").value = "No";
                 break;
@@ -132,10 +131,9 @@ $(function() {
             $("#qrCodeArea-tracking").attr("required", true);
             $("#toggle-submit").removeClass("hidden-option");
             $("#toggle-cart").removeClass("hidden-option");
-            $("#task").attr("required", true);
             // NOT NEEDED
             // $("#toggle-cart").addClass("hidden-option");
-            // $("#task").attr("required", false);
+            $("#task").attr("required", false);
         } else if($(this).val() === "No") {
             // NEEDED
             $("#toggle-cart").removeClass("hidden-option");
@@ -150,10 +148,9 @@ $(function() {
             $("#qrCodeArea-tracking").attr("required", true);
             $("#toggle-submit").removeClass("hidden-option");
             $("#toggle-cart").removeClass("hidden-option");
-            $("#task").attr("required", true);
             // NOT NEEDED
             // $("#toggle-cart").addClass("hidden-option");
-            // $("#task").attr("required", false);
+            $("#task").attr("required", false);
             // submit button
             $("#toggle-submit").removeClass("hidden-option");
         }
@@ -206,7 +203,6 @@ $(function() {
             $("#toggle-impression-area").removeClass("hidden-option");
             $("#tray-id").attr("required", true);
             $("#toggle-cart").removeClass("hidden-option");
-            $("#task").attr("required", true);
             // NOT NEEDED
             $("#toggle-tech-name").addClass("hidden-option");
             $("#tech-name").attr("required", false);
@@ -221,7 +217,6 @@ $(function() {
             $("#toggle-impression-area").removeClass("hidden-option");
             $("#qrCodeArea").attr("required", true);
             $("#toggle-cart").removeClass("hidden-option");
-            $("#task").attr("required", true);
             // NOT NEEDED
             $("#toggle-tech-name").addClass("hidden-option");
             $("#tech-name").attr("required", false);

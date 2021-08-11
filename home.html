@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/styles.css"/>
+
+        <title>Clear Club - Tech Form</title>
+
+    </head>
+    <body>
+        <?php include_once("home.html"); ?>
+        <!-- navbar to toggle between forms -->
+        <nav class="navbar navbar-light justify-content-center" style="background-color: #e3f2fd;">
+            <form class="form-inline">
+                <a href="techtracking-form.html" class="btn btn-lg btn-dark">Tech Tracking</a>
+                <a href="supervisor-form.html" class="btn btn-outline-dark">Supervisor</a>
+                <a href="nontech-form.html" class="btn btn-outline-primary">Non Tech</a>
+            </form>
+        </nav>
+        
+        <!-- header -->
+        <h1>Home</h1>
+
+        <!-- Directory -->
+        <div class="container">
+            <div class="row row-content">
+                <div class="col-md-10">
+                    <p>Information about each form and their purposes</p>
+                   <ul>
+                       <li><a href="techtracking-form.html">Tech Tracking Form</a></li>
+                       <ul>
+                           <li>Priority</li>
+                           <li>Trimming</li>
+                           <li>Pouring</li>
+                           <li>Breaking</li>
+                           <li>Thermoforming</li>
+                           <li>Tray Tracking</li>
+                           <li>Repour Guard NOT Made</li>
+                       </ul>
+                       <li><a href="supervisor-form.html">Supervisor Form</a></li>
+                       <ul>
+                           <li>Fixed Guards</li>
+                           <li>ReThermoforming</li>
+                           <li>Accepted Guards</li>
+                           <li>Quality Assurance</li>
+                       </ul>
+                       <li><a href="nontech-form.html">Non-Tech Form</a></li>
+                       <ul>
+                           <li>Accepted Impressions</li>
+                           <li>Priority Tracking</li>
+                           <li>Repour G.M.</li>
+                       </ul>
+                   </ul>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+        <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
